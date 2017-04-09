@@ -34,7 +34,7 @@
         <nav class="navbar navbar-inverse" role="banner">
             <div class="container">
                 <div class="collapse navbar-collapse navbar-left">
-                    <a class="navbar-brand" href="index.php"><img src="logo.png" alt="logo" style="width:100px;height:100px;"></a>
+                    <a class="navbar-brand" href="index.php"><img src="logo.png" alt="logo" style="width:246px;height:130px;margin-top: -35px;"></a>
                 </div>
                 
                 <div class="collapse navbar-collapse navbar-right">
@@ -42,10 +42,10 @@
                         <li><a href="index.php">Home</a></li>
                         <li><a href="compare-project-data.php">Compare</a></li>
                         <li><a href="#">Try</a></li>
-                        <li><a href="@">Trends</a></li> 
-						<li><a href="#">Explore</a></li> 
+                        <li><a href="#">Trends</a></li> 
+						<li><a href="contributed-data.php">Explore</a></li> 
 						<li class="active"><a href="about-us.php">About Us</a></li>
-                        <li><a href="contact-us.php">Contact</a></li>                        
+                        <li><a href="contact-us.php">Contact Us</a></li>                        
                     </ul>
                 </div>
             </div><!--/.container-->
@@ -178,8 +178,8 @@ MS Research Project: Scrum Model Evaluator Tool tailoring. So this tool will aid
                 </div>
                 <div class="col-sm-6">
                     <ul class="pull-right">
-                        <li><a href="#">About Us</a></li>
-                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="about-us.php">About Us</a></li>
+                        <li><a href="contact-us.php">Contact Us</a></li>
                     </ul>
                 </div>
             </div>

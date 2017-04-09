@@ -43,7 +43,7 @@
 	
     $is_conflict_resolution_process_exists = $_POST['is_conflict_resolution_process_exists'];
 	
-	$sql = "INSERT INTO project_data (company_id, domain, project_type,project_location,technologies,
+	$sql = "INSERT IGNORE INTO project_data (company_id, domain, project_type,project_location,technologies,
 	        total_resources,is_colocated,colocated_type,roles,is_conflict_resolution_process_exists,is_deleted,created_date)
 			
 			VALUES ('$company_id','$domain','$project_type','$project_location','$technologies',
@@ -75,7 +75,7 @@
     $def_of_done_communication = isset($_POST['def_of_done_communication']) ? $_POST['def_of_done_communication'] : ''; ; 
     $progress_sprint_goal = $_POST['progress_sprint_goal'];
 	
-	$scrumPillars = "INSERT INTO scrum_pillars(project_id,
+	$scrumPillars = "INSERT IGNORE INTO scrum_pillars(project_id,
 			is_def_of_done_exists, communication_def_of_done, inspect_progress_sprint_goal, is_deleted, created_date)		
 			VALUES ('$project_id','$def_of_done',
 			'$def_of_done_communication','$progress_sprint_goal',0,'2-2-2017')";
@@ -157,7 +157,7 @@
     $is_scrum_master_part_of_dev_team = isset($_POST['is_scrum_master_part_of_dev_team']) ? $_POST['is_scrum_master_part_of_dev_team'] : '';
 	
 	
-	$scrumteam = "INSERT INTO scrum_team(project_id, is_prod_owner_exists, prod_owner_responsibility, prod_owner_authority, 
+	$scrumteam = "INSERT IGNORE INTO scrum_team(project_id, is_prod_owner_exists, prod_owner_responsibility, prod_owner_authority, 
 			num_of_prod_owner, prod_owner_type, dev_team_report, is_subteam,team_size,dev_team_accountable,
 			is_prod_owner_part_of_dev_team,is_scrum_master_exists,scrum_master_reponsibilities,sc_master_services_dev_team,
 			sc_master_services_prod_owner,sc_master_services_org,qa_perform_dev,dev_perform_qa,
@@ -246,7 +246,7 @@
     $retro_scheduling = isset($_POST['retro_scheduling']) ? $_POST['retro_scheduling'] : '';
 	
 		
-	$scrumEvent = "INSERT INTO scrum_events(project_id,is_stand_up_meeting, sprint_duration, num_of_planned_items, num_of_delivered_items, 
+	$scrumEvent = "INSERT IGNORE INTO scrum_events(project_id,is_stand_up_meeting, sprint_duration, num_of_planned_items, num_of_delivered_items, 
 		number_of_change_request, responsible_to_negotiate_scope, is_sprint_goal_achieved, is_increment_done,
 		scrum_backlog_items,sprint_backlog_management,is_sprint_planning_done,planning_meeting_duration,
 		head_of_planning_meeting,selected_items_in_meeting,items_decided_by_whom,meeting_inputs,is_sprint_goal_created,
@@ -339,7 +339,7 @@
     $retro_output1 = isset($_POST['retro_output1'])? $_POST['retro_output1'] :''; 
     $retro_scheduling1 = isset($_POST['retro_scheduling1']) ? $_POST['retro_scheduling1']:'';
 		
-	$scrumEvent2 = "INSERT INTO scrum_events(project_id,is_stand_up_meeting, sprint_duration, num_of_planned_items, num_of_delivered_items, 
+	$scrumEvent2 = "INSERT IGNORE INTO scrum_events(project_id,is_stand_up_meeting, sprint_duration, num_of_planned_items, num_of_delivered_items, 
 		number_of_change_request, responsible_to_negotiate_scope, is_sprint_goal_achieved, is_increment_done,
 		scrum_backlog_items,sprint_backlog_management,is_sprint_planning_done,planning_meeting_duration,
 		head_of_planning_meeting,selected_items_in_meeting,items_decided_by_whom,meeting_inputs,is_sprint_goal_created,
@@ -434,7 +434,7 @@
     $retro_scheduling2 = isset($_POST['retro_scheduling2']) ? $_POST['retro_scheduling2']:'';
 		
 	
-	$scrumEvent3 = "INSERT INTO scrum_events(project_id,is_stand_up_meeting, sprint_duration, num_of_planned_items, num_of_delivered_items, 
+	$scrumEvent3 = "INSERT IGNORE INTO scrum_events(project_id,is_stand_up_meeting, sprint_duration, num_of_planned_items, num_of_delivered_items, 
 		number_of_change_request, responsible_to_negotiate_scope, is_sprint_goal_achieved, is_increment_done,
 		scrum_backlog_items,sprint_backlog_management,is_sprint_planning_done,planning_meeting_duration,
 		head_of_planning_meeting,selected_items_in_meeting,items_decided_by_whom,meeting_inputs,is_sprint_goal_created,
@@ -486,7 +486,7 @@
     $is_acceptance_criteria_defined = isset($_POST['is_acceptance_criteria_defined']) ? $_POST['is_acceptance_criteria_defined'] : '';
 	
 	
-	$scrumArtifacts = "INSERT INTO scrum_artifacts(project_id,is_prod_backlog_exists,items_product_backlog,prod_backlog_prioritize,
+	$scrumArtifacts = "INSERT IGNORE INTO scrum_artifacts(project_id,is_prod_backlog_exists,items_product_backlog,prod_backlog_prioritize,
 						prod_backlog_updated,prod_backlog_updated_time,prod_backlog_estimation,is_sprint_backlog_exists,
 						sprint_backlog_parts,sprint_backlog_changes,sprint_change_requests,sprint_progress_tracking,
 						is_acceptance_criteria_defined,is_deleted, created_date)		

@@ -15,16 +15,23 @@
 	
 	// Save technology
 	$tech = $_POST['addtech'];
+	if($tech == NUll)
+	{
+			echo "error";
+			mysqli_close($conn);
+	}
 	
-	$sql = "INSERT INTO `technologies`(`name`) VALUES ('$tech')";
-	$result = mysqli_query($conn, $sql);
-	mysqli_close($conn);
-	
-	if ($result) {
-		echo "success";
-		//$result="New record created successfully";
-	}else {
-		echo "error";
-	}		
-	
+	$compare = mysqli_query($conn,"SELECT `id` FROM `technologies` WHERE name= '".$tech."'")->fetch_assoc();
+	//var_dump($compare);	
+	if($compare == NULL)
+	{
+			$sql = "INSERT IGNORE INTO `technologies`(`name`) VALUES ('$tech')";
+			$result = mysqli_query($conn, $sql);
+			mysqli_close($conn);
+			echo "success";
+							
+	}
+	else{
+		echo "exist";
+	}
 ?>

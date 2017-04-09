@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>Compare | Contact</title>
+    <title>Compare | Contact Us</title>
     
     <!-- core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -25,9 +25,64 @@
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/ico/apple-touch-icon-72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
     
-    <script type="text/javascript">
-        function show1(cb) { document.getElementById('text1').style.display = cb.checked ? 'block' : 'none'; }
-    </script>
+    <script >
+			
+		function sendmail(){
+			$("#submit").attr('disabled','disabled');			
+			$("#msg-success").hide();
+			$("#msg-email").hide();
+			$("#msg-error").hide();
+			
+			$.ajax({
+			  url: 'contactemail.php', 
+			  data: {
+				f_name: $("#f_name").val(),
+				l_name: $("#l_name").val(), 
+				email: $("#email").val(), 
+				number: $("#number").val(), 
+				subject: $("#subject").val(), 
+				message: $("#message").val()
+			  },
+			  		  
+			  error: function(data) {
+				
+					$("#msg-error").show();
+					$("#submit").removeAttr('disabled');			
+					setTimeout(function(){ $("#msg-error").hide(); }, 3000);		  
+			  },
+			  			  
+			  success: function(data) {
+				  if(data == $.trim("success")){
+					$("#msg-success").show();
+
+					$("#f_name").val(""),
+					$("#l_name").val(""), 
+					$("#email").val(""), 
+					$("#number").val(""), 
+					$("#subject").val(""),
+					$("#message").val("")
+						
+					$("#submit").removeAttr('disabled');			
+					setTimeout(function(){ $("#msg-success").hide(); }, 3000);
+				}
+				  if(data == $.trim("email")){						
+					$("#msg-email").show();
+					$("#submit").removeAttr('disabled');			
+					setTimeout(function(){ $("#msg-email").hide(); }, 3000); 
+				  }
+				
+				  if(data == $.trim("error"){
+					$("#msg-error").show();
+					$("#submit").removeAttr('disabled');			
+					setTimeout(function(){ $("#msg-error").hide(); }, 3000);
+				}		  
+			  },
+			  type: 'POST'
+			});
+		}
+
+	</script>
+
     
 </head><!--/head-->
 
@@ -38,7 +93,7 @@
         <nav class="navbar navbar-inverse" role="banner">
             <div class="container">
                 <div class="collapse navbar-collapse navbar-left">
-                    <a class="navbar-brand" href="index.php"><img src="logo.png" alt="logo" style="width:100px;height:100px;"></a>
+                    <a class="navbar-brand" href="index.php"><img src="logo.png" alt="logo" style="width:246px;height:130px;margin-top: -35px;"></a>
                 </div>
                 
                 <div class="collapse navbar-collapse navbar-right">
@@ -46,10 +101,10 @@
                         <li><a href="index.php">Home</a></li>
                         <li><a href="compare-project-data.php">Compare</a></li>
                         <li><a href="#">Try</a></li>
-                        <li><a href="@">Trends</a></li> 
-						<li><a href="#">Explore</a></li> 
+                        <li><a href="#">Trends</a></li> 
+						<li><a href="contributed-data.php">Explore</a></li> 
 						<li><a href="about-us.php">About Us</a></li>
-                        <li class="active"><a href="contact-us.php">Contact</a></li>                        
+                        <li class="active"><a href="contact-us.php">Contact Us</a></li>                       
                     </ul>
                 </div>
             </div><!--/.container-->
@@ -64,41 +119,40 @@
                 <p class="lead" name="msg"><font color="#c52d2f">Feel free to contact us for any kind of issue or inconsistency of data we gathered from surveys, query, comment and feedback.</font></p>
             </div> 
             <div class="row contact-wrap"> 
-                <!--<div class="status alert alert-success" style="display: none"></div>-->
-                <form id="main-contact-form" class="contact-form" name="contact-form" action="contactdb.php" method="post">
-                    <div class="col-sm-5 col-sm-offset-1">
-                        <div class="form-group">
+                <form id="main-contact-form" class="contact-form" action="contactemail.php" method="post" onsubmit = 'return false;'>
+                    <div id="msg-success" class="status alert alert-success" style="display: none">Your message has been delivered successfully</div>
+					<div id="msg-error" class="status alert alert-danger" style="display: none">Due to some tehcnical issue, system was unable to sent message</div>
+					<div id="msg-email" class="status alert alert-danger" style="display: none">Some data is inappropriate</div>
+					<div class="col-sm-5 col-sm-offset-1">
+                        <div class="form-group" id="contact">
                             <label>First Name *</label>
-                            <input type="text" name="f_name" class="form-control" required="required">
+                            <input type="text" name="f_name" id="f_name" class="form-control" required="required">
                         </div>
 						<div class="form-group">
                             <label>Last Name *</label>
-                            <input type="text" name="l_name" class="form-control" required="required">
+                            <input type="text" name="l_name" id="l_name" class="form-control" required="required">
                         </div>
                         <div class="form-group">
                             <label>Email *</label>
-                            <input type="email" name="email" class="form-control" required="required">
+                            <input type="email" name="email" id="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" class="form-control" required="required">
                         </div>
                         <div class="form-group">
                             <label>Phone</label>
-                            <input type="number" name="number" class="form-control">
+                            <input type="number" name="number" id="number" class="form-control">
                         </div>                        
                     </div>
                     <div class="col-sm-5">
                         <div class="form-group">
                             <label>Subject *</label>
-                            <input type="text" name="subject" class="form-control" required="required">
+                            <input type="text" name="subject" id="subject" class="form-control" required="required">
                         </div>
                         <div class="form-group">
                             <label>Message *</label>
-                            <textarea name="message" required="required" class="form-control" rows="8"></textarea>
-                        </div>                        
+                            <textarea name="message" id="message" required="required" class="form-control" rows="8"></textarea>
+                        </div>                    
                         <div class="form-group">
-						   <button type="submit" class="btn btn-success btn-lg" onclick="myFunction()">Submit</button>
-						   <button type="reset" class="btn btn-primary btn-lg" onclick="myFunction()">Submit</button>
-                           <!--<input type="submit" value="Submit" class="btn btn-success btn-lg"></input>
-                           <input type="reset" Value="Reset" class="btn btn-primary btn-lg"></input>-->
-                            
+						   <button type="submit" id="submit" class="btn btn-success btn-lg" onclick="sendmail()">Submit</button>
+						   <button type="reset" reset="Reset" class="btn btn-primary btn-lg">Reset</button>                            
                         </div>
                     </div>
                 </form> 
@@ -114,8 +168,8 @@
                 </div>
                 <div class="col-sm-6">
                     <ul class="pull-right">
-                        <li><a href="#">About Us</a></li>
-                        <li><a href="#">Contact Us</a></li>
+						<li><a href="about-us.php">About Us</a></li>
+                        <li><a href="contact-us.php">Contact Us</a></li>
                     </ul>
                 </div>
             </div>
