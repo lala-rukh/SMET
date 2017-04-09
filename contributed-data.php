@@ -1,3 +1,6 @@
+<?php 
+  $cid=0;
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>Compare | Scrum Team</title>
+    <title>Contributed Data</title>
     
     <!-- core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -14,6 +17,7 @@
     <link href="css/animate.min.css" rel="stylesheet">
     <link href="css/main.css" rel="stylesheet">
     <link href="css/responsive.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
     
     <!--[if lt IE 9]>
     <script src="js/html5shiv.js"></script>
@@ -39,22 +43,16 @@
         <nav class="navbar navbar-inverse" role="banner">
             <div class="container">
                 <div class="collapse navbar-collapse navbar-left">
-                    <!--<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>-->
                     <a class="navbar-brand" href="index.php"><img src="logo.png" alt="logo" style="width:100px;height:100px;"></a>
                 </div>
                 
                 <div class="collapse navbar-collapse navbar-right">
                     <ul class="nav navbar-nav" style="font-size: 16px; font-weight: bold;">
-                        <li class="active"><a href="index.php">Home</a></li>
+                        <li><a href="index.php">Home</a></li>
                         <li><a href="compare-project-data.php">Compare</a></li>
                         <li><a href="#">Try</a></li>
                         <li><a href="#">Trends</a></li> 
-						<li><a href="contributed-data.php">Explore</a></li> 
+						<li class="active"><a href="contributed-data.php">Explore</a></li> 
 						<li><a href="about-us.php">About Us</a></li>
                         <li><a href="contact-us.php">Contact Us</a></li>                        
                     </ul>
@@ -67,57 +65,104 @@
 
     <section id="feature" class="transparent-bg">
 		<div class="container">
-			<div class="carousel-content col-sm-4" style="margin-top:45px;">
-				<h1 class="animation animated-item-1" style="color: #000040">Scrum Model Evaluator Tool</h1>
-				<h2 class="animation animated-item-2" style="color: #000040; text-align: justify;">This tool compares the standard Scrum model with the Scrum model you are following after providing the information by you.</h2>
-			</div>
-			<div class="carousel-content col-sm-8">
-				 <img src="images/slider/scrum.png" style="width:780px;height:420px;"> 
-			</div>
+		
+	<form id="contributed-data" action="contributed-data.php" method="post">
 		<div class="center col-sm-12">
 			<hr>
-			<h2><b>Features</b></h2>
-		</div>
-		<div class="row">
-                <div class="features">
-                    <div class="col-md-6 col-sm-6 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms">
-                        <div class="feature-wrap">
-                            <a href="compare-project-data.php"><i class="fa fa-exchange"></i></a>
-                            <h2>Compare</h2>
-                            <h3>Compare your Scrum model against Scrum standards.</h3>
-                        </div>
-                    </div><!--/.col-md-4-->
-
-                    <div class="col-md-6 col-sm-6 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms">
-                        <div class="feature-wrap">
-                            <a href="contributed-data.php"><i class="fa fa-history"></i></a>
-                            <h2>Try</h2>
-                            <h3>You can try to find how Scrum comparison works.</h3>
-                        </div>
-                    </div><!--/.col-md-4-->
-
-                    <div class="col-md-6 col-sm-6 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms">
-                        <div class="feature-wrap">
-                            <i class="fa fa-area-chart"></i>
-                            <h2>Trends</h2>
-                            <h3>Graphical representation of Scrum comparision</h3>
-                        </div>
-                    </div><!--/.col-md-4-->
-                
-                    <div class="col-md-6 col-sm-6 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms">
-                        <div class="feature-wrap">
-							<a href="contributed-data.php"><i class="fa fa-th-list"></i></a>
-                            <h2>Explore</h2>
-                            <h3>Explore what you have contributed here.</h3>
-                        </div>
-                    </div><!--/.col-md-4-->
-                </div><!--/.services-->
-            </div><!--/.row-->  
-
+			<h2><b>Explore Contributed Data</b></h2>
+			<div class="col-sm-3">
+				<div id="msg-success" class="status alert alert-danger" style="display: none">No record found.</div>
+				<div class="form-group">
+                    <label class="control-label" style="margin-top:10px;">Company Id</label>
+				</div>	
+			</div>
+			
+			<div class="col-sm-6">
+                <div class="form-group">
+					<label></label>
+                    <input type="number" name="cid" class="form-control" required="required">
+				</div>	
+			</div>
+			
+			<div class="col-sm-3">
+                <div class="form-group">
+					<input type="submit" class="btn btn-primary nextBtn btn-lg pull-right" value="Seacrh">
+				</div>	
+			</div>
         </div><!--/.container-->
+        <div class="col-sm-12" align = "center">
+			<hr>
+			<table id="data" class="table1" border="4">
+				<tr style="font-size:16px;">
+					<th class="text1">Domain</th>
+					<th class="text1">Type</th>
+					<th class="text1">Location</th>
+					<th class="text1">Technologies</th>
+					<th class="text1">Estimated Duration</th>
+					<th class="text1">Total Resources</th>
+					<th class="text1">Skills Set</th>
+					<th>View</th>
+				</tr>
+				<?php
+					$servername = "localhost";
+					$username = "root";
+					$password = "";
+					$dbname = "smet_core_database";
+										
+					$cid = $_POST['cid'];
+					
+					// Create connection
+					//$conn = mysqli_connect($servername, $username, $password, $dbname);
+					mysql_connect($servername, $username, $password) or die(mysql_error());
+					mysql_select_db($dbname) or die("Cannot Connect to database");		
+					// Check connection
+					//if (!$conn) {
+						//die("Connection failed: " . mysqli_connect_error());
+					//}
+					
+					$query = mysql_query("SELECT project_id, domain, project_type, project_location, technologies, duration, total_resources, skills FROM `project_data` where project_id='$cid'");
+					//$result = mysqli_query($conn, $sql);
+					//echo $result;
+					if($query!=Null)
+					{
+						while($row= mysql_fetch_array($query))
+						{
+							$id=$row['project_id'];
+							$domain=$row['domain'];
+							$type=$row['project_type'];
+							$location=$row['project_location'];
+							$tech=$row['technologies'];
+							$duration=$row['duration'];
+							$resources=$row['total_resources'];
+							$skills=$row['skills'];
+							
+							//echo $id, $domain;
+							
+							Print '<tr>';
+								Print '<td>'.$domain."</td>";
+								Print '<td>'.$type."</td>";
+								Print '<td>'.$location."</td>";
+								Print '<td>'.$tech."</td>";
+								Print '<td>'.$duration."</td>";								
+								Print '<td>'.$resources."</td>";								
+								Print '<td>'.$skills."</td>";
+								Print '<td align="center"><a href="#.php?id='.$row['project_id'].'"><i class="fa fa-eye"></i></a></td>';
+							Print '</tr>';
+						}
+						//mysqli_close($conn);
+					}
+					else{
+						//mysqli_close($conn);
+						//echo "error";
+					}	
+				?>
+			</table>
+         </div><!--/.container-->
+        
+	</form>
     </section><!--/#feature-->
-
-    <footer id="footer" class="midnight-blue">
+	
+	<footer id="footer" class="midnight-blue">
         <div class="container">
             <div class="row">
                 <div class="col-sm-6">
@@ -141,8 +186,3 @@
     <script src="js/wow.min.js"></script>
 </body>
 </html>
-
-
-
-<?php
-?>
