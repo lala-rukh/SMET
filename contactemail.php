@@ -1,57 +1,99 @@
 <?php
-
-	$servername = "localhost";
-    $username = "root";
-    $password = "";
-    $dbname = "smet_core_database";
-	
-	// Create connection
-	$conn = mysqli_connect($servername, $username, $password, $dbname);
-	
-	// Check connection
-	if (!$conn) {
-		die("Connection failed: " . mysqli_connect_error());
-	}
-	else{
+	/*	$dbname="smet_core_database";
+		alert('here');
 		$first_name = $_POST['f_name']; // required
 		$last_name = $_POST['l_name']; // required
-		$from = $_POST['email']; // required
+		$email_from = $_POST['email']; // required
 		$number = $_POST['number']; // not required
-		$subject = $_POST['subject'];
 		$comments = $_POST['message']; // required
+		echo($first_name + $last_name + $email_from + $number + $comments);
 		
-		$email_exp = '/^[A-Za-z0-9._%-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/';
+		mysql_connect("localhost", "root", "admin1234") or die(mysql_error());
+		mysql_select_db($dbname) or die("Cannot connect to Database");
+		mysql_query("INSERT INTO contact_us (fname,lname,email,phone_number, comments) VALUES ('$first_name', '$last_name', '$email_from', '$number', '$comments')");
+		mysql_close();
+		*/
+?>
+
+<?php
+ini_set("SMTP","ssl:smtp.gmail.com");
+ini_set("smtp_port","25");
+
+$dbname="smet_core_database";
+$first_name ="";
+$last_name = "";
+$email_from = "";
+$number = "";
+$comments = "";
+$email_to="";
+$email_subject="";
+$error_message="";
+		
+		
+if(isset($_POST['email'])) {  
+ 
+    // EDIT THE 2 LINES BELOW AS REQUIRED
+ 
+    $email_to = "scrum.evaluator@gmail.com";
+    $email_subject = $_POST['subject'];
+ 
+		function died($error) {
+			// your error code can go here
+			echo "We are very sorry, but there were error(s) found with the form you submitted. ";
+			echo "These errors appear below.<br /><br />";
+			echo $error."<br /><br />";
+			echo "Please go back and fix these errors.<br /><br />";
+			die();
+		}
+		//validation expected data exists
+		if(!isset($_POST['f_name']) || 
+			!isset($_POST['l_name']) ||
+			!isset($_POST['email']) ||
+			!isset($_POST['subject']) ||
+			!isset($_POST['message'])) {
+			died('We are sorry, but there appears to be a problem with the form you submitted.');       
+		}
+		
+		$first_name = $_POST['f_name']; // required
+		$last_name = $_POST['l_name']; // required
+		$email_from = $_POST['email']; // required
+		$number = $_POST['number']; // not required
+		$comments = $_POST['message']; // required
+		echo($first_name + $last_name + $email_from + $number + $comments);
+		
+		mysql_connect("localhost", "root", "admin1234") or die(mysql_error());
+		mysql_select_db($dbname) or die("Cannot connect to Database");
+		mysql_query("INSERT INTO contact_us (fname,lname,email,phone_number, comments) VALUES ('$first_name', '$last_name', '$email_from', '$number', '$comments')");
+		mysql_close();
+
+    $error_message = "";
+    $string_exp = "/^[A-Za-z .'-]+$/";
+    $email_exp = '/^[A-Za-z0-9._%-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/';
     
-		if(!preg_match($email_exp,$from)) {
-			echo "email";
-			mysqli_close($conn);
-		}
-		
-		else{
-				
-			if($first_name == NULL OR $last_name==NULL OR $from==NULL OR $comments==NULL)
-			{
-				echo "error";
-				mysqli_close($conn);					
-			}
-			else
-			{
-				
-				$to = 'scrum.evaluator@gmail.com';//replace with your email
-				
-				$headers = "MIME-Version: 1.0" . "\r\n";
-				$headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
-				$headers .= "From: Scrum Evaluator <'{$from}'> \r\n";
-				$headers .= "Reply-To: '{$first_name} {$last_name}'<'{$from}'>\r\n".
-						"X-Mailer: PHP/" . phpversion();
-						
-				$mail_sent = mail( $to, $subject, $comments, $headers );
-				
-				$sql = "INSERT INTO `contact_us` (`fname`, `lname`, `email`, `phone_number`, `comments`, `created_date`, `is_email_sent`) VALUES ('$first_name', '$last_name', '$from', '$number', '$comments', NOW(), '1')";
-				$result = mysqli_query($conn, $sql);
-				echo "success";
-				mysqli_close($conn);
-			}
-		}
-	}
+	  if(!preg_match($email_exp,$email_from)) {
+		$error_message .= 'The Email Address you entered does not appear to be valid.<br />';
+	  }  
+  }
+  if(strlen($comments) < 2) {
+    $error_message .= 'The Comments you entered do not appear to be valid.<br />';
+  }				
+  
+  $email_message = "Form details below.\n\n";
+  function clean_string($string) {
+      $bad = array("content-type","bcc:","to:","cc:","href");
+      return str_replace($bad,"",$string);
+    }
+    $email_message .= "First Name: ".clean_string($first_name)."\n";
+    $email_message .= "Last Name: ".clean_string($last_name)."\n";
+    $email_message .= "Email: ".clean_string($email_from)."\n";
+    $email_message .= "number: ".clean_string($number)."\n";
+    $email_message .= "Comments: ".clean_string($comments)."\n";
+/* create email headers
+$headers = 'From: '.$email_from."\r\n".
+'Reply-To: '.$email_from."\r\n" .
+'X-Mailer: PHP/' . phpversion();
+mail($email_to, $email_subject, $email_message, $headers);
+
+echo('Thank you for contacting us. We will be in touch with you very soon.'); 
+*/
 ?>
