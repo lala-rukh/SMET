@@ -52,11 +52,11 @@
                     <ul class="nav navbar-nav" style="font-size: 16px; font-weight: bold;">
                         <li class="active"><a href="index.php">Home</a></li>
                         <li><a href="compare-project-data.php">Compare</a></li>
-                        <li><a href="#">Try</a></li>
-                        <li><a href="#">Trends</a></li> 
+                        <li><a href="portfolio.html">Try</a></li>
+                        <li><a href="blog.html">Trends</a></li> 
 						<li><a href="contributed-data.php">Explore</a></li> 
-						<li><a href="about-us.php">About Us</a></li>
-                        <li><a href="contact-us.php">Contact Us</a></li>                        
+						<li><a href="about-us.html">About Us</a></li>
+                        <li><a href="contact-us.html">Contact</a></li>                        
                     </ul>
                 </div>
             </div><!--/.container-->
@@ -68,11 +68,12 @@
     <section id="feature" class="transparent-bg">
 		<div class="container">
 			<div class="carousel-content col-sm-4" style="margin-top:45px;">
-				<h1 class="animation animated-item-1" style="color: #000040">Scrum Model Evaluator Tool</h1>
-				<h2 class="animation animated-item-2" style="color: #000040; text-align: justify;">This tool compares the standard Scrum model with the Scrum model you are following after providing the information by you.</h2>
+				<h1 class="animation animated-item-1" style="color: #000040">What is Scrum?</h1>
+				<h2 class="animation animated-item-2" style="color: #000040; text-align: justify;">In the agile Scrum world, instead of providing complete, detailed descriptions of how everything is to be done on a project, much of it is left up to the Scrum software development team. This is because the team will know best how to solve the problem they are presented.</h2>
+				<br><a class="btn-slide animation animated-item-3" href="#">Read More</a>
 			</div>
 			<div class="carousel-content col-sm-8">
-				 <img src="images/slider/scrum.png" style="width:780px;height:420px;"> 
+				 <img src="images/slider/scrum.jpg" style="width:780px;height:420px;"> 
 			</div>
 		<div class="center col-sm-12">
 			<hr>
@@ -82,7 +83,7 @@
                 <div class="features">
                     <div class="col-md-6 col-sm-6 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms">
                         <div class="feature-wrap">
-                            <a href="compare-project-data.php"><i class="fa fa-exchange"></i></a>
+                            <i class="fa fa-exchange"></i>
                             <h2>Compare</h2>
                             <h3>Compare your Scrum model against Scrum standards.</h3>
                         </div>
@@ -90,7 +91,7 @@
 
                     <div class="col-md-6 col-sm-6 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms">
                         <div class="feature-wrap">
-                            <a href="contributed-data.php"><i class="fa fa-history"></i></a>
+                            <i class="fa fa-history"></i>
                             <h2>Try</h2>
                             <h3>You can try to find how Scrum comparison works.</h3>
                         </div>
@@ -106,7 +107,7 @@
                 
                     <div class="col-md-6 col-sm-6 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms">
                         <div class="feature-wrap">
-							<a href="contributed-data.php"><i class="fa fa-th-list"></i></a>
+                            <i class="fa fa-th-list"></i>
                             <h2>Explore</h2>
                             <h3>Explore what you have contributed here.</h3>
                         </div>
@@ -125,8 +126,8 @@
                 </div>
                 <div class="col-sm-6">
                     <ul class="pull-right">
-                        <li><a href="about-us.php">About Us</a></li>
-                        <li><a href="contact-us.php">Contact Us</a></li>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Contact Us</a></li>
                     </ul>
                 </div>
             </div>

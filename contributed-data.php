@@ -1,6 +1,3 @@
-<?php 
-  $cid=0;
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,7 +14,6 @@
     <link href="css/animate.min.css" rel="stylesheet">
     <link href="css/main.css" rel="stylesheet">
     <link href="css/responsive.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
     
     <!--[if lt IE 9]>
     <script src="js/html5shiv.js"></script>
@@ -43,18 +39,24 @@
         <nav class="navbar navbar-inverse" role="banner">
             <div class="container">
                 <div class="collapse navbar-collapse navbar-left">
+                    <!--<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>-->
                     <a class="navbar-brand" href="index.php"><img src="logo.png" alt="logo" style="width:100px;height:100px;"></a>
                 </div>
                 
                 <div class="collapse navbar-collapse navbar-right">
                     <ul class="nav navbar-nav" style="font-size: 16px; font-weight: bold;">
-                        <li><a href="index.php">Home</a></li>
+                        <li class="active"><a href="index.php">Home</a></li>
                         <li><a href="compare-project-data.php">Compare</a></li>
-                        <li><a href="#">Try</a></li>
-                        <li><a href="#">Trends</a></li> 
-						<li class="active"><a href="contributed-data.php">Explore</a></li> 
-						<li><a href="about-us.php">About Us</a></li>
-                        <li><a href="contact-us.php">Contact Us</a></li>                        
+                        <li><a href="portfolio.html">Try</a></li>
+                        <li><a href="blog.html">Trends</a></li> 
+						<li><a href="blog.html">Explore</a></li> 
+						<li><a href="about-us.html">About Us</a></li>
+                        <li><a href="contact-us.html">Contact</a></li>                        
                     </ul>
                 </div>
             </div><!--/.container-->
@@ -66,13 +68,12 @@
     <section id="feature" class="transparent-bg">
 		<div class="container">
 		
-	<form id="contributed-data" action="contributed-data.php" method="post">
+	<form id="contributed-data" method="post" action="fetch-contributed-data.php">
 		<div class="center col-sm-12">
 			<hr>
 			<h2><b>Explore Contributed Data</b></h2>
 			<div class="col-sm-3">
-				<div id="msg-success" class="status alert alert-danger" style="display: none">No record found.</div>
-				<div class="form-group">
+                <div class="form-group">
                     <label class="control-label" style="margin-top:10px;">Company Id</label>
 				</div>	
 			</div>
@@ -80,7 +81,7 @@
 			<div class="col-sm-6">
                 <div class="form-group">
 					<label></label>
-                    <input type="number" name="cid" class="form-control" required="required">
+                    <input type="number" name="company_id" class="form-control" required="required">
 				</div>	
 			</div>
 			
@@ -90,79 +91,10 @@
 				</div>	
 			</div>
         </div><!--/.container-->
-        <div class="col-sm-12" align = "center">
-			<hr>
-			<table id="data" class="table1" border="4">
-				<tr style="font-size:16px;">
-					<th class="text1">Domain</th>
-					<th class="text1">Type</th>
-					<th class="text1">Location</th>
-					<th class="text1">Technologies</th>
-					<th class="text1">Estimated Duration</th>
-					<th class="text1">Total Resources</th>
-					<th class="text1">Skills Set</th>
-					<th>View</th>
-				</tr>
-				<?php
-					$servername = "localhost";
-					$username = "root";
-					$password = "";
-					$dbname = "smet_core_database";
-										
-					$cid = $_POST['cid'];
-					
-					// Create connection
-					//$conn = mysqli_connect($servername, $username, $password, $dbname);
-					mysql_connect($servername, $username, $password) or die(mysql_error());
-					mysql_select_db($dbname) or die("Cannot Connect to database");		
-					// Check connection
-					//if (!$conn) {
-						//die("Connection failed: " . mysqli_connect_error());
-					//}
-					
-					$query = mysql_query("SELECT project_id, domain, project_type, project_location, technologies, duration, total_resources, skills FROM `project_data` where project_id='$cid'");
-					//$result = mysqli_query($conn, $sql);
-					//echo $result;
-					if($query!=Null)
-					{
-						while($row= mysql_fetch_array($query))
-						{
-							$id=$row['project_id'];
-							$domain=$row['domain'];
-							$type=$row['project_type'];
-							$location=$row['project_location'];
-							$tech=$row['technologies'];
-							$duration=$row['duration'];
-							$resources=$row['total_resources'];
-							$skills=$row['skills'];
-							
-							//echo $id, $domain;
-							
-							Print '<tr>';
-								Print '<td>'.$domain."</td>";
-								Print '<td>'.$type."</td>";
-								Print '<td>'.$location."</td>";
-								Print '<td>'.$tech."</td>";
-								Print '<td>'.$duration."</td>";								
-								Print '<td>'.$resources."</td>";								
-								Print '<td>'.$skills."</td>";
-								Print '<td align="center"><a href="#.php?id='.$row['project_id'].'"><i class="fa fa-eye"></i></a></td>';
-							Print '</tr>';
-						}
-						//mysqli_close($conn);
-					}
-					else{
-						//mysqli_close($conn);
-						//echo "error";
-					}	
-				?>
-			</table>
-         </div><!--/.container-->
-        
 	</form>
     </section><!--/#feature-->
-	
-	<footer id="footer" class="midnight-blue">
+
+    <footer id="footer" class="midnight-blue">
         <div class="container">
             <div class="row">
                 <div class="col-sm-6">
@@ -170,8 +102,8 @@
                 </div>
                 <div class="col-sm-6">
                     <ul class="pull-right">
-                        <li><a href="about-us.php">About Us</a></li>
-                        <li><a href="contact-us.php">Contact Us</a></li>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Contact Us</a></li>
                     </ul>
                 </div>
             </div>

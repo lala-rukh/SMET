@@ -1,20 +1,20 @@
 -- phpMyAdmin SQL Dump
--- version 4.6.6
--- https://www.phpmyadmin.net/
+-- version 3.5.1
+-- http://www.phpmyadmin.net
 --
--- Host: 127.0.0.1
--- Generation Time: Feb 09, 2017 at 05:43 AM
--- Server version: 5.7.14
--- PHP Version: 5.6.25
+-- Host: localhost
+-- Generation Time: Apr 09, 2017 at 12:03 PM
+-- Server version: 5.5.24-log
+-- PHP Version: 5.4.3
 
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
+/*!40101 SET NAMES utf8 */;
 
 --
 -- Database: `smet_core_database`
@@ -26,16 +26,17 @@ SET time_zone = "+00:00";
 -- Table structure for table `contact_us`
 --
 
-CREATE TABLE `contact_us` (
-  `id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `contact_us` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `fname` varchar(45) DEFAULT NULL,
   `lname` varchar(45) DEFAULT NULL,
   `email` varchar(45) DEFAULT NULL,
   `phone_number` varchar(15) DEFAULT NULL,
   `comments` text,
   `created_date` datetime DEFAULT NULL,
-  `is_email_sent` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `is_email_sent` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -43,26 +44,82 @@ CREATE TABLE `contact_us` (
 -- Table structure for table `project_data`
 --
 
-CREATE TABLE `project_data` (
-  `project_id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `project_data` (
+  `project_id` int(11) NOT NULL AUTO_INCREMENT,
   `company_id` int(11) NOT NULL,
-  `domain` enum('health_care','banking_system','financial','mobile applications','games','websites') NOT NULL,
-  `project_type` enum('for_client','product_base','in_house') NOT NULL,
+  `domain` text NOT NULL,
+  `project_type` enum('In-House','Project for a Client','Product to be Sold','None') NOT NULL,
   `project_location` enum('onsite','offshore') NOT NULL,
   `technologies` varchar(50) NOT NULL,
-  `duration` int(11) NOT NULL,
   `total_resources` int(11) NOT NULL,
-  `skills` varchar(50) NOT NULL,
   `is_colocated` tinyint(1) NOT NULL,
+  `colocated_type` double DEFAULT NULL,
   `roles` text NOT NULL,
   `is_conflict_resolution_process_exists` int(11) NOT NULL,
-  `num_of_figures_in_cres_process` int(11) NOT NULL,
-  `num_of_sec_in_cres_process` int(11) NOT NULL,
-  `num_of_tbl_in_cres_process` int(11) NOT NULL,
-  `is_cres_process_shared` int(11) NOT NULL,
   `is_deleted` tinyint(1) NOT NULL,
-  `created_date` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Table for saving project data of SMET sytem projects. ';
+  `created_date` datetime NOT NULL,
+  PRIMARY KEY (`project_id`),
+  KEY `company_id` (`company_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='Table for saving project data of SMET sytem projects. ' AUTO_INCREMENT=67 ;
+
+--
+-- Dumping data for table `project_data`
+--
+
+INSERT INTO `project_data` (`project_id`, `company_id`, `domain`, `project_type`, `project_location`, `technologies`, `total_resources`, `is_colocated`, `colocated_type`, `roles`, `is_conflict_resolution_process_exists`, `is_deleted`, `created_date`) VALUES
+(11, 1, '', '', '', 'technologies', 1, 1, NULL, 'roles', 1, 1, '0000-00-00 00:00:00'),
+(12, 1, '', 'Project for a Client', 'onsite', 'android', 23, 0, NULL, 'scrum_master', 1, 0, '0000-00-00 00:00:00'),
+(13, 1, 'Transaction processing system', 'Project for a Client', 'onsite', 'android', 23, 1, 0.25, 'product_owner', 0, 0, '0000-00-00 00:00:00'),
+(14, 1, '', '', '', '', 1, 0, 0, 'scrum_master', 0, 0, '0000-00-00 00:00:00'),
+(15, 1, 'Transaction processing system', 'Project for a Client', 'offshore', 'android', 22, 0, 0, 'product_owner', 1, 0, '0000-00-00 00:00:00'),
+(16, 1, 'Transaction processing system', 'Project for a Client', 'offshore', '', 22, 0, 0, 'product_owner', 1, 0, '0000-00-00 00:00:00'),
+(17, 1, 'Transaction processing system', 'Project for a Client', 'offshore', '', 22, 0, 0, 'product_owner', 1, 0, '0000-00-00 00:00:00'),
+(18, 1, 'web-based systems', 'Product to be Sold', 'offshore', '', 1, 0, 0, 'quality_engineer', 1, 0, '0000-00-00 00:00:00'),
+(19, 1, 'web-based systems', 'Product to be Sold', 'offshore', '', 1, 0, 0, 'quality_engineer', 1, 0, '0000-00-00 00:00:00'),
+(20, 1, 'web-based systems', 'Product to be Sold', 'offshore', '', 1, 0, 0, 'quality_engineer', 1, 0, '0000-00-00 00:00:00'),
+(21, 1, 'Transaction processing system', 'In-House', 'offshore', '', 1, 1, 0.25, 'developer', 1, 0, '0000-00-00 00:00:00'),
+(22, 1, 'Transaction processing system', 'In-House', 'offshore', '', 1, 1, 0.25, 'developer', 1, 0, '0000-00-00 00:00:00'),
+(23, 1, 'Transaction processing system', 'In-House', 'offshore', '', 1, 1, 0.25, 'developer', 1, 0, '0000-00-00 00:00:00'),
+(24, 1, 'Transaction processing system', 'In-House', 'offshore', '', 1, 1, 0.25, 'developer', 1, 0, '0000-00-00 00:00:00'),
+(25, 1, 'Transaction processing system', 'Product to be Sold', 'offshore', '', 2, 0, 0, 'quality_engineer', 0, 0, '0000-00-00 00:00:00'),
+(26, 1, 'Transaction processing system', 'Product to be Sold', 'offshore', '', 2, 0, 0, 'quality_engineer', 0, 0, '0000-00-00 00:00:00'),
+(27, 1, 'Transaction processing system', 'Product to be Sold', 'offshore', '', 2, 0, 0, 'quality_engineer', 0, 0, '0000-00-00 00:00:00'),
+(28, 1, 'Transaction processing system', 'Product to be Sold', 'offshore', '', 2, 0, 0, 'quality_engineer', 0, 0, '0000-00-00 00:00:00'),
+(29, 1, 'Transaction processing system', 'Product to be Sold', 'offshore', '', 2, 0, 0, 'quality_engineer', 0, 0, '0000-00-00 00:00:00'),
+(30, 1, 'Transaction processing system', 'Product to be Sold', 'offshore', '', 2, 0, 0, 'quality_engineer', 0, 0, '0000-00-00 00:00:00'),
+(31, 1, 'Transaction processing system', 'Product to be Sold', 'offshore', '', 2, 0, 0, 'quality_engineer', 0, 0, '0000-00-00 00:00:00'),
+(32, 1, 'Transaction processing system', 'Product to be Sold', 'offshore', '', 2, 0, 0, 'quality_engineer', 0, 0, '0000-00-00 00:00:00'),
+(33, 1, 'Transaction processing system', 'Product to be Sold', 'offshore', '', 2, 0, 0, 'quality_engineer', 0, 0, '0000-00-00 00:00:00'),
+(34, 1, 'Transaction processing system', 'Product to be Sold', 'offshore', '', 2, 0, 0, 'quality_engineer', 0, 0, '0000-00-00 00:00:00'),
+(35, 1, 'Transaction processing system', 'Product to be Sold', 'offshore', '', 2, 0, 0, 'quality_engineer', 0, 0, '0000-00-00 00:00:00'),
+(36, 1, 'Transaction processing system', 'Product to be Sold', 'offshore', '', 2, 0, 0, 'quality_engineer', 0, 0, '0000-00-00 00:00:00'),
+(37, 1, 'Transaction processing system', 'Product to be Sold', 'offshore', '', 2, 0, 0, 'quality_engineer', 0, 0, '0000-00-00 00:00:00'),
+(39, 1, 'Systems softwar', 'None', 'offshore', 'android', 2, 0, 0, 'quality_engineer', 0, 0, '0000-00-00 00:00:00'),
+(40, 1, 'Systems softwar', 'None', 'offshore', 'android', 2, 0, 0, 'quality_engineer', 0, 0, '0000-00-00 00:00:00'),
+(41, 1, 'Systems softwar', 'None', 'offshore', '', 2, 0, 0, 'quality_engineer', 0, 0, '0000-00-00 00:00:00'),
+(42, 1, 'Systems softwar', 'None', 'offshore', '', 2, 0, 0, 'quality_engineer', 0, 0, '0000-00-00 00:00:00'),
+(43, 1, 'Transaction processing system', 'Project for a Client', 'onsite', 'android', 1, 0, 0, 'scrum_master', 1, 0, '0000-00-00 00:00:00'),
+(44, 1, 'Transaction processing system', 'Project for a Client', 'onsite', 'android', 1, 0, 0, 'scrum_master', 1, 0, '0000-00-00 00:00:00'),
+(45, 1, 'Mobile application', 'In-House', 'offshore', 'android', 2, 1, 0.5, 'Array', 1, 0, '0000-00-00 00:00:00'),
+(46, 1, 'web-based systems', 'Project for a Client', 'offshore', 'android', 1, 0, 0, 'product_owner,team_lead,', 0, 0, '0000-00-00 00:00:00'),
+(47, 1, 'web-based systems', 'Project for a Client', 'offshore', 'android', 1, 0, 0, 'product_owner,team_lead,', 0, 0, '0000-00-00 00:00:00'),
+(48, 1, 'web-based systems', 'Project for a Client', 'offshore', 'android', 1, 0, 0, 'product_owner,team_lead,', 0, 0, '0000-00-00 00:00:00'),
+(49, 1, 'web-based systems', 'Project for a Client', 'offshore', 'android', 1, 0, 0, 'product_owner,team_lead,', 0, 0, '0000-00-00 00:00:00'),
+(50, 1, 'web-based systems', 'Project for a Client', 'offshore', 'android', 1, 0, 0, 'product_owner,team_lead,', 0, 0, '0000-00-00 00:00:00'),
+(51, 1, 'Management information systems', 'Product to be Sold', 'onsite', 'android', 1, 0, 0, 'product_owner,developer,', 1, 0, '0000-00-00 00:00:00'),
+(52, 1, 'Management information systems', 'Product to be Sold', 'onsite', 'android', 1, 0, 0, 'product_owner,developer,', 1, 0, '0000-00-00 00:00:00'),
+(53, 1, 'Management information systems', 'Product to be Sold', 'onsite', 'android', 1, 0, 0, 'product_owner,developer,', 1, 0, '0000-00-00 00:00:00'),
+(54, 1, 'Management information systems', 'Product to be Sold', 'onsite', 'android', 1, 0, 0, 'product_owner,developer,', 1, 0, '0000-00-00 00:00:00'),
+(55, 1, 'Management information systems', 'Product to be Sold', 'onsite', 'android', 1, 0, 0, 'product_owner,developer,', 1, 0, '0000-00-00 00:00:00'),
+(56, 1, 'Management information systems', 'Product to be Sold', 'onsite', 'android', 1, 0, 0, 'product_owner,developer,', 1, 0, '0000-00-00 00:00:00'),
+(57, 1, 'Management information systems', 'Product to be Sold', 'onsite', 'android', 1, 0, 0, 'product_owner,developer,', 1, 0, '0000-00-00 00:00:00'),
+(58, 1, 'Management information systems', 'Product to be Sold', 'onsite', 'android', 1, 0, 0, 'product_owner,developer,', 1, 0, '0000-00-00 00:00:00'),
+(59, 1, 'Management information systems', 'Product to be Sold', 'onsite', 'android', 1, 0, 0, 'product_owner,developer,', 1, 0, '0000-00-00 00:00:00'),
+(60, 1, 'Management information systems', 'Product to be Sold', 'onsite', 'android', 1, 0, 0, 'product_owner,developer,', 1, 0, '0000-00-00 00:00:00'),
+(61, 1, 'Systems softwar', 'Project for a Client', 'onsite', 'android', 6, 1, 0, 'product_owner,quality_engineer,developer,', 1, 0, '0000-00-00 00:00:00'),
+(64, 1, 'Transaction processing system', 'Project for a Client', 'offshore', 'android', 1, 0, 0, 'product_owner,', 1, 0, '0000-00-00 00:00:00'),
+(65, 1, 'Transaction processing system', 'Product to be Sold', 'onsite', 'android', 3, 1, 0.25, 'product_owner,quality_engineer,', 1, 0, '0000-00-00 00:00:00'),
+(66, 1, 'Systems softwar', 'In-House', 'onsite', 'android', 6, 1, 0, 'product_owner,', 1, 0, '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -70,12 +127,20 @@ CREATE TABLE `project_data` (
 -- Table structure for table `registration`
 --
 
-CREATE TABLE `registration` (
-  `company_id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `registration` (
+  `company_id` int(11) NOT NULL AUTO_INCREMENT,
   `email_address` varchar(45) DEFAULT NULL,
   `company_name` varchar(30) DEFAULT NULL,
-  `created_date` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Table for registration of new company in SMET system.';
+  `created_date` datetime DEFAULT NULL,
+  PRIMARY KEY (`company_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='Table for registration of new company in SMET system.' AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `registration`
+--
+
+INSERT INTO `registration` (`company_id`, `email_address`, `company_name`, `created_date`) VALUES
+(1, 'iqrahussain26@gmail.com', 'iqra', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -83,13 +148,13 @@ CREATE TABLE `registration` (
 -- Table structure for table `scrum_artifacts`
 --
 
-CREATE TABLE `scrum_artifacts` (
-  `id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `scrum_artifacts` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `project_id` int(11) DEFAULT NULL,
   `is_prod_backlog_exists` tinyint(1) DEFAULT NULL,
   `items_product_backlog` int(11) DEFAULT NULL,
-  `prod_backlog_prioritize` enum('product_owner','project_manager','scrum_master','development_team') DEFAULT NULL,
-  `prod_backlog_updated` enum('product_owner','project_manager','scrum_master','development_team') DEFAULT NULL,
+  `prod_backlog_prioritize` text,
+  `prod_backlog_updated` text,
   `prod_backlog_updated_time` text,
   `prod_backlog_estimation` enum('product_owner','project_manager','scrum_master','development_team') DEFAULT NULL,
   `is_sprint_backlog_exists` tinyint(1) DEFAULT NULL,
@@ -99,8 +164,71 @@ CREATE TABLE `scrum_artifacts` (
   `sprint_progress_tracking` text,
   `is_acceptance_criteria_defined` tinyint(1) DEFAULT NULL,
   `is_deleted` tinyint(1) DEFAULT NULL,
-  `created_date` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `created_date` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `project_id` (`project_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=56 ;
+
+--
+-- Dumping data for table `scrum_artifacts`
+--
+
+INSERT INTO `scrum_artifacts` (`id`, `project_id`, `is_prod_backlog_exists`, `items_product_backlog`, `prod_backlog_prioritize`, `prod_backlog_updated`, `prod_backlog_updated_time`, `prod_backlog_estimation`, `is_sprint_backlog_exists`, `sprint_backlog_parts`, `sprint_backlog_changes`, `sprint_change_requests`, `sprint_progress_tracking`, `is_acceptance_criteria_defined`, `is_deleted`, `created_date`) VALUES
+(1, 12, 0, 0, '', '', '', '', 0, '', '', 0, '', 0, 0, '0000-00-00 00:00:00'),
+(2, 13, 0, 0, '', '', '', '', 0, '', '', 0, '', 0, 0, '0000-00-00 00:00:00'),
+(3, 14, 0, 0, '', '', '', '', 0, '', '', 0, '', 0, 0, '0000-00-00 00:00:00'),
+(4, 15, 0, 0, '', '', '', '', 0, '', '', 0, '', 0, 0, '0000-00-00 00:00:00'),
+(5, 16, 0, 0, '', '', '', '', 0, '', '', 0, '', 0, 0, '0000-00-00 00:00:00'),
+(6, 17, 0, 0, '', '', '', '', 0, '', '', 0, '', 0, 0, '0000-00-00 00:00:00'),
+(7, 18, 0, 0, '', '', '', '', 0, '', '', 0, '', 0, 0, '0000-00-00 00:00:00'),
+(8, 19, 0, 0, '', '', '', '', 0, '', '', 0, '', 0, 0, '0000-00-00 00:00:00'),
+(9, 20, 0, 0, '', '', '', '', 0, '', '', 0, '', 0, 0, '0000-00-00 00:00:00'),
+(10, 21, 0, 0, '', '', '', '', 0, '', '', 0, '', 0, 0, '0000-00-00 00:00:00'),
+(11, 22, 0, 0, '', '', '', '', 0, '', '', 0, '', 0, 0, '0000-00-00 00:00:00'),
+(12, 23, 0, 0, '', '', '', '', 0, '', '', 0, '', 0, 0, '0000-00-00 00:00:00'),
+(13, 24, 0, 0, '', '', '', '', 0, '', '', 0, '', 0, 0, '0000-00-00 00:00:00'),
+(14, 25, 0, 0, '', '', '', '', 0, '', '', 0, '', 0, 0, '0000-00-00 00:00:00'),
+(15, 26, 0, 0, '', '', '', '', 0, '', '', 0, '', 0, 0, '0000-00-00 00:00:00'),
+(16, 27, 0, 0, '', '', '', '', 0, '', '', 0, '', 0, 0, '0000-00-00 00:00:00'),
+(17, 28, 0, 0, '', '', '', '', 0, '', '', 0, '', 0, 0, '0000-00-00 00:00:00'),
+(18, 29, 0, 0, '', '', '', '', 0, '', '', 0, '', 0, 0, '0000-00-00 00:00:00'),
+(19, 30, 0, 0, '', '', '', '', 0, '', '', 0, '', 0, 0, '0000-00-00 00:00:00'),
+(20, 31, 0, 0, '', '', '', '', 0, '', '', 0, '', 0, 0, '0000-00-00 00:00:00'),
+(21, 32, 0, 0, '', '', '', '', 0, '', '', 0, '', 0, 0, '0000-00-00 00:00:00'),
+(22, 33, 0, 0, '', '', '', '', 0, '', '', 0, '', 0, 0, '0000-00-00 00:00:00'),
+(23, 34, 0, 0, '', '', '', '', 0, '', '', 0, '', 0, 0, '0000-00-00 00:00:00'),
+(24, 35, 0, 0, '', '', '', '', 0, '', '', 0, '', 0, 0, '0000-00-00 00:00:00'),
+(25, 36, 0, 0, '', '', '', '', 0, '', '', 0, '', 0, 0, '0000-00-00 00:00:00'),
+(26, 37, 0, 0, '', '', '', '', 0, '', '', 0, '', 0, 0, '0000-00-00 00:00:00'),
+(27, 37, 0, 0, '', '', '', '', 0, '', '', 0, '', 0, 0, '0000-00-00 00:00:00'),
+(28, 39, 0, 0, '', '', '', '', 0, '', '', 0, '', 0, 0, '0000-00-00 00:00:00'),
+(29, 40, 0, 0, '', '', '', '', 0, '', '', 0, '', 0, 0, '0000-00-00 00:00:00'),
+(30, 41, 0, 0, '', '', '', '', 0, '', '', 0, '', 0, 0, '0000-00-00 00:00:00'),
+(31, 42, 0, 0, '', '', '', '', 0, '', '', 0, '', 0, 0, '0000-00-00 00:00:00'),
+(32, 43, 0, 2, '', '', 'not_at_all', 'scrum_master', 0, 'items_to_be_delivered', 'product_owner', 2, '2', 1, 0, '0000-00-00 00:00:00'),
+(33, 44, 0, 2, '', '', 'not_at_all', 'scrum_master', 0, 'items_to_be_delivered', 'product_owner', 2, '2', 1, 0, '0000-00-00 00:00:00'),
+(34, 45, 0, 0, '', '', '', '', 0, '', '', 0, '', 0, 0, '0000-00-00 00:00:00'),
+(35, 46, 0, 0, '', '', '', '', 0, '', '', 0, '', 0, 0, '0000-00-00 00:00:00'),
+(36, 47, 0, 0, '', '', '', '', 0, '', '', 0, '', 0, 0, '0000-00-00 00:00:00'),
+(37, 48, 0, 0, '', '', '', '', 0, '', '', 0, '', 0, 0, '0000-00-00 00:00:00'),
+(38, 49, 0, 0, '', '', '', '', 0, '', '', 0, '', 0, 0, '0000-00-00 00:00:00'),
+(39, 50, 0, 0, '', '', '', '', 0, '', '', 0, '', 0, 0, '0000-00-00 00:00:00'),
+(40, 51, 0, 0, '', '', '', '', 0, '', '', 0, '', 1, 0, '0000-00-00 00:00:00'),
+(41, 52, 0, 0, '', '', '', '', 0, '', '', 0, '', 1, 0, '0000-00-00 00:00:00'),
+(42, 53, 0, 0, '', '', '', '', 0, '', '', 0, '', 1, 0, '0000-00-00 00:00:00'),
+(43, 54, 0, 0, '', '', '', '', 0, '', '', 0, '', 1, 0, '0000-00-00 00:00:00'),
+(44, 55, 0, 0, '', '', '', '', 0, '', '', 0, '', 1, 0, '0000-00-00 00:00:00'),
+(45, 56, 0, 0, '', '', '', '', 0, '', '', 0, '', 1, 0, '0000-00-00 00:00:00'),
+(46, 57, 0, 0, '', '', '', '', 0, '', '', 0, '', 1, 0, '0000-00-00 00:00:00'),
+(47, 58, 0, 0, '', '', '', '', 0, '', '', 0, '', 1, 0, '0000-00-00 00:00:00'),
+(48, 59, 0, 0, '', '', '', '', 0, '', '', 0, '', 1, 0, '0000-00-00 00:00:00'),
+(49, 60, 0, 0, '', '', '', '', 0, '', '', 0, '', 1, 0, '0000-00-00 00:00:00'),
+(50, 61, 1, 9, 'prouct_owner', 'quality_engineer', '', 'product_owner', 1, 'items_to_be_delivered,product_backlog_items,', 'product_owner', 7, 'burn down chart', 0, 0, '0000-00-00 00:00:00'),
+(51, 61, 0, 0, '', '', '', '', 0, '', '', 0, '', 0, 0, '0000-00-00 00:00:00'),
+(52, 61, 0, 0, '', '', '', '', 0, '', '', 0, '', 0, 0, '0000-00-00 00:00:00'),
+(53, 64, 0, 0, '', '', '', '', 0, '', '', 0, '', 0, 0, '0000-00-00 00:00:00'),
+(54, 65, 0, 0, '', '', '', '', 0, '', '', 0, '', 1, 0, '0000-00-00 00:00:00'),
+(55, 66, 1, 5, 'scrum-master', 'scrum-master', 'any_time', 'product_owner', 1, 'product_backlog_items,', 'scrum_master', 3, 'burn down chart', 1, 0, '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -108,48 +236,201 @@ CREATE TABLE `scrum_artifacts` (
 -- Table structure for table `scrum_events`
 --
 
-CREATE TABLE `scrum_events` (
-  `id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `scrum_events` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `project_id` int(11) DEFAULT NULL,
   `sprint_duration` int(11) DEFAULT NULL,
   `num_of_planned_items` int(11) DEFAULT NULL,
   `num_of_delivered_items` int(11) DEFAULT NULL,
   `number_of_change_request` int(11) DEFAULT NULL,
-  `responsible_to_negotiate_scope` enum('product_owner','scrum_master','development_team','product_manager') DEFAULT NULL,
+  `responsible_to_negotiate_scope` text,
   `is_sprint_goal_achieved` tinyint(1) DEFAULT NULL,
   `is_increment_done` tinyint(1) DEFAULT NULL,
-  `scrum_backlog_items` enum('product_owner','scrum_master','development_team') DEFAULT NULL,
-  `sprint_backlog_management` enum('product_owner','scrum_master','development_team') DEFAULT NULL,
+  `scrum_backlog_items` text,
+  `sprint_backlog_management` text,
   `is_sprint_planning_done` tinyint(1) DEFAULT NULL,
   `planning_meeting_duration` int(11) DEFAULT NULL,
   `head_of_planning_meeting` varchar(50) DEFAULT NULL,
   `selected_items_in_meeting` int(11) DEFAULT NULL,
-  `items_decided_by_whom` enum('product_owner','scrum_master','development_team') DEFAULT NULL,
+  `items_decided_by_whom` text,
   `meeting_inputs` text,
   `is_sprint_goal_created` tinyint(1) DEFAULT NULL,
   `is_sprint_backlog_created` tinyint(1) DEFAULT NULL,
-  `estimation_by_whome` enum('product_owner','scrum_master','development_team') DEFAULT NULL,
-  `resp_for_scope_negotiation` enum('product_owner','scrum_master','development_team') DEFAULT NULL,
+  `estimation_by_whome` text,
+  `resp_for_scope_negotiation` text,
+  `is_stand_up_meeting` tinyint(1) DEFAULT NULL,
   `decomposition_of_selected_items` text,
   `standup_duration` int(11) DEFAULT NULL,
   `is_place_time_decided_for_standup` tinyint(1) DEFAULT NULL,
   `questions_in_standup` text,
-  `resp_for_standup` enum('product_owner','scrum_master','development_team') DEFAULT NULL,
-  `standup_participants` enum('product_owner','scrum_master','development_team') DEFAULT NULL,
+  `resp_for_standup` text,
+  `standup_participants` text,
   `sprint_review_duration` int(11) DEFAULT NULL,
   `sprint_review_purpose` text,
   `feedback_items_for_review` int(11) DEFAULT NULL,
-  `sprint_review_condution` enum('start_of_sprint','during_sprint','end_of_sprint') DEFAULT NULL,
-  `review_meeting_facilitator` enum('product_owner','scrum_master') DEFAULT NULL,
-  `features_demo` enum('product_owner','scrum_master','development_team') DEFAULT NULL,
+  `sprint_review_condution` enum('start_of_sprint','end_of_sprint','middle_of_sprint') DEFAULT NULL,
+  `review_meeting_facilitator` text,
+  `features_demo` text,
   `is_sprint_retro_done` tinyint(1) DEFAULT NULL,
   `sprint_retro_duration` int(11) DEFAULT NULL,
   `retro_discussion` text,
   `retro_output` text,
-  `retro_scheduling` enum('product_owner','project_manager','scrum_master') DEFAULT NULL,
+  `retro_scheduling` text,
   `is_deleted` tinyint(1) DEFAULT NULL,
-  `created_date` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `created_date` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `project_id` (`project_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=145 ;
+
+--
+-- Dumping data for table `scrum_events`
+--
+
+INSERT INTO `scrum_events` (`id`, `project_id`, `sprint_duration`, `num_of_planned_items`, `num_of_delivered_items`, `number_of_change_request`, `responsible_to_negotiate_scope`, `is_sprint_goal_achieved`, `is_increment_done`, `scrum_backlog_items`, `sprint_backlog_management`, `is_sprint_planning_done`, `planning_meeting_duration`, `head_of_planning_meeting`, `selected_items_in_meeting`, `items_decided_by_whom`, `meeting_inputs`, `is_sprint_goal_created`, `is_sprint_backlog_created`, `estimation_by_whome`, `resp_for_scope_negotiation`, `is_stand_up_meeting`, `decomposition_of_selected_items`, `standup_duration`, `is_place_time_decided_for_standup`, `questions_in_standup`, `resp_for_standup`, `standup_participants`, `sprint_review_duration`, `sprint_review_purpose`, `feedback_items_for_review`, `sprint_review_condution`, `review_meeting_facilitator`, `features_demo`, `is_sprint_retro_done`, `sprint_retro_duration`, `retro_discussion`, `retro_output`, `retro_scheduling`, `is_deleted`, `created_date`) VALUES
+(1, 12, 0, 0, 0, 0, '', 0, 0, '', '', 0, 0, '', 0, '', '', 0, 0, '', '', NULL, '', 0, 0, '', '', '', 0, '', 0, '', '', '', 0, 0, '', '', '', 0, '0000-00-00 00:00:00'),
+(2, 12, 0, 0, 0, 0, '', 0, 0, '', '', 0, 0, '', 0, '', '', 0, 0, '', '', NULL, '', 0, 0, '', '', '', 0, '', 0, '', '', '', 0, 0, '', '', '', 0, '0000-00-00 00:00:00'),
+(3, 12, 0, 0, 0, 0, '', 0, 0, '', '', 0, 0, '', 0, '', '', 0, 0, '', '', NULL, '', 0, 0, '', '', '', 0, '', 0, '', '', '', 0, 0, '', '', '', 0, '0000-00-00 00:00:00'),
+(4, 13, 0, 0, 0, 0, '', 0, 0, '', '', 0, 0, '', 0, '', '', 0, 0, '', '', NULL, '', 0, 0, '', '', '', 0, '', 0, '', '', '', 0, 0, '', '', '', 0, '0000-00-00 00:00:00'),
+(5, 13, 0, 0, 0, 0, '', 0, 0, '', '', 0, 0, '', 0, '', '', 0, 0, '', '', NULL, '', 0, 0, '', '', '', 0, '', 0, '', '', '', 0, 0, '', '', '', 0, '0000-00-00 00:00:00'),
+(6, 13, 0, 0, 0, 0, '', 0, 0, '', '', 0, 0, '', 0, '', '', 0, 0, '', '', NULL, '', 0, 0, '', '', '', 0, '', 0, '', '', '', 0, 0, '', '', '', 0, '0000-00-00 00:00:00'),
+(7, 14, 0, 0, 0, 0, '', 0, 0, '', '', 0, 0, '', 0, '', '', 0, 0, '', '', NULL, '', 0, 0, '', '', '', 0, '', 0, '', '', '', 0, 0, '', '', '', 0, '0000-00-00 00:00:00'),
+(8, 14, 0, 0, 0, 0, '', 0, 0, '', '', 0, 0, '', 0, '', '', 0, 0, '', '', NULL, '', 0, 0, '', '', '', 0, '', 0, '', '', '', 0, 0, '', '', '', 0, '0000-00-00 00:00:00'),
+(9, 14, 0, 0, 0, 0, '', 0, 0, '', '', 0, 0, '', 0, '', '', 0, 0, '', '', NULL, '', 0, 0, '', '', '', 0, '', 0, '', '', '', 0, 0, '', '', '', 0, '0000-00-00 00:00:00'),
+(10, 15, 0, 0, 0, 0, '', 0, 0, '', '', 0, 0, '', 0, '', '', 0, 0, '', '', NULL, '', 0, 0, '', '', '', 0, '', 0, '', '', '', 0, 0, '', '', '', 0, '0000-00-00 00:00:00'),
+(11, 15, 0, 0, 0, 0, '', 0, 0, '', '', 0, 0, '', 0, '', '', 0, 0, '', '', NULL, '', 0, 0, '', '', '', 0, '', 0, '', '', '', 0, 0, '', '', '', 0, '0000-00-00 00:00:00'),
+(12, 15, 0, 0, 0, 0, '', 0, 0, '', '', 0, 0, '', 0, '', '', 0, 0, '', '', NULL, '', 0, 0, '', '', '', 0, '', 0, '', '', '', 0, 0, '', '', '', 0, '0000-00-00 00:00:00'),
+(13, 16, 0, 0, 0, 0, '', 0, 0, '', '', 0, 0, '', 0, '', '', 0, 0, '', '', NULL, '', 0, 0, '', '', '', 0, '', 0, '', '', '', 0, 0, '', '', '', 0, '0000-00-00 00:00:00'),
+(14, 16, 0, 0, 0, 0, '', 0, 0, '', '', 0, 0, '', 0, '', '', 0, 0, '', '', NULL, '', 0, 0, '', '', '', 0, '', 0, '', '', '', 0, 0, '', '', '', 0, '0000-00-00 00:00:00'),
+(15, 16, 0, 0, 0, 0, '', 0, 0, '', '', 0, 0, '', 0, '', '', 0, 0, '', '', NULL, '', 0, 0, '', '', '', 0, '', 0, '', '', '', 0, 0, '', '', '', 0, '0000-00-00 00:00:00'),
+(16, 17, 0, 0, 0, 0, '', 0, 0, '', '', 0, 0, '', 0, '', '', 0, 0, '', '', NULL, '', 0, 0, '', '', '', 0, '', 0, '', '', '', 0, 0, '', '', '', 0, '0000-00-00 00:00:00'),
+(17, 17, 0, 0, 0, 0, '', 0, 0, '', '', 0, 0, '', 0, '', '', 0, 0, '', '', NULL, '', 0, 0, '', '', '', 0, '', 0, '', '', '', 0, 0, '', '', '', 0, '0000-00-00 00:00:00'),
+(18, 17, 0, 0, 0, 0, '', 0, 0, '', '', 0, 0, '', 0, '', '', 0, 0, '', '', NULL, '', 0, 0, '', '', '', 0, '', 0, '', '', '', 0, 0, '', '', '', 0, '0000-00-00 00:00:00'),
+(19, 18, 0, 0, 0, 0, '', 0, 0, '', '', 0, 0, '', 0, '', '', 0, 0, '', '', NULL, '', 0, 0, '', '', '', 0, '', 0, '', '', '', 0, 0, '', '', '', 0, '0000-00-00 00:00:00'),
+(20, 18, 0, 0, 0, 0, '', 0, 0, '', '', 0, 0, '', 0, '', '', 0, 0, '', '', NULL, '', 0, 0, '', '', '', 0, '', 0, '', '', '', 0, 0, '', '', '', 0, '0000-00-00 00:00:00'),
+(21, 18, 0, 0, 0, 0, '', 0, 0, '', '', 0, 0, '', 0, '', '', 0, 0, '', '', NULL, '', 0, 0, '', '', '', 0, '', 0, '', '', '', 0, 0, '', '', '', 0, '0000-00-00 00:00:00'),
+(22, 19, 0, 0, 0, 0, '', 0, 0, '', '', 0, 0, '', 0, '', '', 0, 0, '', '', NULL, '', 0, 0, '', '', '', 0, '', 0, '', '', '', 0, 0, '', '', '', 0, '0000-00-00 00:00:00'),
+(23, 19, 0, 0, 0, 0, '', 0, 0, '', '', 0, 0, '', 0, '', '', 0, 0, '', '', NULL, '', 0, 0, '', '', '', 0, '', 0, '', '', '', 0, 0, '', '', '', 0, '0000-00-00 00:00:00'),
+(24, 19, 0, 0, 0, 0, '', 0, 0, '', '', 0, 0, '', 0, '', '', 0, 0, '', '', NULL, '', 0, 0, '', '', '', 0, '', 0, '', '', '', 0, 0, '', '', '', 0, '0000-00-00 00:00:00'),
+(25, 20, 0, 0, 0, 0, '', 0, 0, '', '', 0, 0, '', 0, '', '', 0, 0, '', '', NULL, '', 0, 0, '', '', '', 0, '', 0, '', '', '', 0, 0, '', '', '', 0, '0000-00-00 00:00:00'),
+(26, 20, 0, 0, 0, 0, '', 0, 0, '', '', 0, 0, '', 0, '', '', 0, 0, '', '', NULL, '', 0, 0, '', '', '', 0, '', 0, '', '', '', 0, 0, '', '', '', 0, '0000-00-00 00:00:00'),
+(27, 20, 0, 0, 0, 0, '', 0, 0, '', '', 0, 0, '', 0, '', '', 0, 0, '', '', NULL, '', 0, 0, '', '', '', 0, '', 0, '', '', '', 0, 0, '', '', '', 0, '0000-00-00 00:00:00'),
+(28, 21, 0, 0, 0, 0, '', 0, 0, '', '', 0, 0, '', 0, '', '', 0, 0, '', '', NULL, '', 0, 0, '', '', '', 0, '', 0, '', '', '', 0, 0, '', '', '', 0, '0000-00-00 00:00:00'),
+(29, 21, 0, 0, 0, 0, '', 0, 0, '', '', 0, 0, '', 0, '', '', 0, 0, '', '', NULL, '', 0, 0, '', '', '', 0, '', 0, '', '', '', 0, 0, '', '', '', 0, '0000-00-00 00:00:00'),
+(30, 21, 0, 0, 0, 0, '', 0, 0, '', '', 0, 0, '', 0, '', '', 0, 0, '', '', NULL, '', 0, 0, '', '', '', 0, '', 0, '', '', '', 0, 0, '', '', '', 0, '0000-00-00 00:00:00'),
+(31, 22, 0, 0, 0, 0, '', 0, 0, '', '', 0, 0, '', 0, '', '', 0, 0, '', '', NULL, '', 0, 0, '', '', '', 0, '', 0, '', '', '', 0, 0, '', '', '', 0, '0000-00-00 00:00:00'),
+(32, 22, 0, 0, 0, 0, '', 0, 0, '', '', 0, 0, '', 0, '', '', 0, 0, '', '', NULL, '', 0, 0, '', '', '', 0, '', 0, '', '', '', 0, 0, '', '', '', 0, '0000-00-00 00:00:00'),
+(33, 22, 0, 0, 0, 0, '', 0, 0, '', '', 0, 0, '', 0, '', '', 0, 0, '', '', NULL, '', 0, 0, '', '', '', 0, '', 0, '', '', '', 0, 0, '', '', '', 0, '0000-00-00 00:00:00'),
+(34, 23, 0, 0, 0, 0, '', 0, 0, '', '', 0, 0, '', 0, '', '', 0, 0, '', '', NULL, '', 0, 0, '', '', '', 0, '', 0, '', '', '', 0, 0, '', '', '', 0, '0000-00-00 00:00:00'),
+(35, 23, 0, 0, 0, 0, '', 0, 0, '', '', 0, 0, '', 0, '', '', 0, 0, '', '', NULL, '', 0, 0, '', '', '', 0, '', 0, '', '', '', 0, 0, '', '', '', 0, '0000-00-00 00:00:00'),
+(36, 23, 0, 0, 0, 0, '', 0, 0, '', '', 0, 0, '', 0, '', '', 0, 0, '', '', NULL, '', 0, 0, '', '', '', 0, '', 0, '', '', '', 0, 0, '', '', '', 0, '0000-00-00 00:00:00'),
+(37, 24, 0, 0, 0, 0, '', 0, 0, '', '', 0, 0, '', 0, '', '', 0, 0, '', '', NULL, '', 0, 0, '', '', '', 0, '', 0, '', '', '', 0, 0, '', '', '', 0, '0000-00-00 00:00:00'),
+(38, 24, 0, 0, 0, 0, '', 0, 0, '', '', 0, 0, '', 0, '', '', 0, 0, '', '', NULL, '', 0, 0, '', '', '', 0, '', 0, '', '', '', 0, 0, '', '', '', 0, '0000-00-00 00:00:00'),
+(39, 24, 0, 0, 0, 0, '', 0, 0, '', '', 0, 0, '', 0, '', '', 0, 0, '', '', NULL, '', 0, 0, '', '', '', 0, '', 0, '', '', '', 0, 0, '', '', '', 0, '0000-00-00 00:00:00'),
+(40, 25, 0, 0, 0, 0, '', 0, 0, '', '', 0, 0, '', 0, '', '', 0, 0, '', '', NULL, '', 0, 0, '', '', '', 0, '', 0, '', '', '', 0, 0, '', '', '', 0, '0000-00-00 00:00:00'),
+(41, 25, 0, 0, 0, 0, '', 0, 0, '', '', 0, 0, '', 0, '', '', 0, 0, '', '', NULL, '', 0, 0, '', '', '', 0, '', 0, '', '', '', 0, 0, '', '', '', 0, '0000-00-00 00:00:00'),
+(42, 25, 0, 0, 0, 0, '', 0, 0, '', '', 0, 0, '', 0, '', '', 0, 0, '', '', NULL, '', 0, 0, '', '', '', 0, '', 0, '', '', '', 0, 0, '', '', '', 0, '0000-00-00 00:00:00'),
+(43, 26, 0, 0, 0, 0, '', 0, 0, '', '', 0, 0, '', 0, '', '', 0, 0, '', '', NULL, '', 0, 0, '', '', '', 0, '', 0, '', '', '', 0, 0, '', '', '', 0, '0000-00-00 00:00:00'),
+(44, 26, 0, 0, 0, 0, '', 0, 0, '', '', 0, 0, '', 0, '', '', 0, 0, '', '', NULL, '', 0, 0, '', '', '', 0, '', 0, '', '', '', 0, 0, '', '', '', 0, '0000-00-00 00:00:00'),
+(45, 26, 0, 0, 0, 0, '', 0, 0, '', '', 0, 0, '', 0, '', '', 0, 0, '', '', NULL, '', 0, 0, '', '', '', 0, '', 0, '', '', '', 0, 0, '', '', '', 0, '0000-00-00 00:00:00'),
+(46, 27, 0, 0, 0, 0, '', 0, 0, '', '', 0, 0, '', 0, '', '', 0, 0, '', '', NULL, '', 0, 0, '', '', '', 0, '', 0, '', '', '', 0, 0, '', '', '', 0, '0000-00-00 00:00:00'),
+(47, 27, 0, 0, 0, 0, '', 0, 0, '', '', 0, 0, '', 0, '', '', 0, 0, '', '', NULL, '', 0, 0, '', '', '', 0, '', 0, '', '', '', 0, 0, '', '', '', 0, '0000-00-00 00:00:00'),
+(48, 27, 0, 0, 0, 0, '', 0, 0, '', '', 0, 0, '', 0, '', '', 0, 0, '', '', NULL, '', 0, 0, '', '', '', 0, '', 0, '', '', '', 0, 0, '', '', '', 0, '0000-00-00 00:00:00'),
+(49, 28, 0, 0, 0, 0, '', 0, 0, '', '', 0, 0, '', 0, '', '', 0, 0, '', '', NULL, '', 0, 0, '', '', '', 0, '', 0, '', '', '', 0, 0, '', '', '', 0, '0000-00-00 00:00:00'),
+(50, 28, 0, 0, 0, 0, '', 0, 0, '', '', 0, 0, '', 0, '', '', 0, 0, '', '', NULL, '', 0, 0, '', '', '', 0, '', 0, '', '', '', 0, 0, '', '', '', 0, '0000-00-00 00:00:00'),
+(51, 28, 0, 0, 0, 0, '', 0, 0, '', '', 0, 0, '', 0, '', '', 0, 0, '', '', NULL, '', 0, 0, '', '', '', 0, '', 0, '', '', '', 0, 0, '', '', '', 0, '0000-00-00 00:00:00'),
+(52, 29, 0, 0, 0, 0, '', 0, 0, '', '', 0, 0, '', 0, '', '', 0, 0, '', '', NULL, '', 0, 0, '', '', '', 0, '', 0, '', '', '', 0, 0, '', '', '', 0, '0000-00-00 00:00:00'),
+(53, 29, 0, 0, 0, 0, '', 0, 0, '', '', 0, 0, '', 0, '', '', 0, 0, '', '', NULL, '', 0, 0, '', '', '', 0, '', 0, '', '', '', 0, 0, '', '', '', 0, '0000-00-00 00:00:00'),
+(54, 29, 0, 0, 0, 0, '', 0, 0, '', '', 0, 0, '', 0, '', '', 0, 0, '', '', NULL, '', 0, 0, '', '', '', 0, '', 0, '', '', '', 0, 0, '', '', '', 0, '0000-00-00 00:00:00'),
+(55, 30, 0, 0, 0, 0, '', 0, 0, '', '', 0, 0, '', 0, '', '', 0, 0, '', '', NULL, '', 0, 0, '', '', '', 0, '', 0, '', '', '', 0, 0, '', '', '', 0, '0000-00-00 00:00:00'),
+(56, 30, 0, 0, 0, 0, '', 0, 0, '', '', 0, 0, '', 0, '', '', 0, 0, '', '', NULL, '', 0, 0, '', '', '', 0, '', 0, '', '', '', 0, 0, '', '', '', 0, '0000-00-00 00:00:00'),
+(57, 30, 0, 0, 0, 0, '', 0, 0, '', '', 0, 0, '', 0, '', '', 0, 0, '', '', NULL, '', 0, 0, '', '', '', 0, '', 0, '', '', '', 0, 0, '', '', '', 0, '0000-00-00 00:00:00'),
+(58, 31, 0, 0, 0, 0, '', 0, 0, '', '', 0, 0, '', 0, '', '', 0, 0, '', '', NULL, '', 0, 0, '', '', '', 0, '', 0, '', '', '', 0, 0, '', '', '', 0, '0000-00-00 00:00:00'),
+(59, 31, 0, 0, 0, 0, '', 0, 0, '', '', 0, 0, '', 0, '', '', 0, 0, '', '', NULL, '', 0, 0, '', '', '', 0, '', 0, '', '', '', 0, 0, '', '', '', 0, '0000-00-00 00:00:00'),
+(60, 31, 0, 0, 0, 0, '', 0, 0, '', '', 0, 0, '', 0, '', '', 0, 0, '', '', NULL, '', 0, 0, '', '', '', 0, '', 0, '', '', '', 0, 0, '', '', '', 0, '0000-00-00 00:00:00'),
+(61, 32, 0, 0, 0, 0, '', 0, 0, '', '', 0, 0, '', 0, '', '', 0, 0, '', '', NULL, '', 0, 0, '', '', '', 0, '', 0, '', '', '', 0, 0, '', '', '', 0, '0000-00-00 00:00:00'),
+(62, 32, 0, 0, 0, 0, '', 0, 0, '', '', 0, 0, '', 0, '', '', 0, 0, '', '', NULL, '', 0, 0, '', '', '', 0, '', 0, '', '', '', 0, 0, '', '', '', 0, '0000-00-00 00:00:00'),
+(63, 32, 0, 0, 0, 0, '', 0, 0, '', '', 0, 0, '', 0, '', '', 0, 0, '', '', NULL, '', 0, 0, '', '', '', 0, '', 0, '', '', '', 0, 0, '', '', '', 0, '0000-00-00 00:00:00'),
+(64, 33, 0, 0, 0, 0, '', 0, 0, '', '', 0, 0, '', 0, '', '', 0, 0, '', '', NULL, '', 0, 0, '', '', '', 0, '', 0, '', '', '', 0, 0, '', '', '', 0, '0000-00-00 00:00:00'),
+(65, 33, 0, 0, 0, 0, '', 0, 0, '', '', 0, 0, '', 0, '', '', 0, 0, '', '', NULL, '', 0, 0, '', '', '', 0, '', 0, '', '', '', 0, 0, '', '', '', 0, '0000-00-00 00:00:00'),
+(66, 33, 0, 0, 0, 0, '', 0, 0, '', '', 0, 0, '', 0, '', '', 0, 0, '', '', NULL, '', 0, 0, '', '', '', 0, '', 0, '', '', '', 0, 0, '', '', '', 0, '0000-00-00 00:00:00'),
+(67, 34, 0, 0, 0, 0, '', 0, 0, '', '', 0, 0, '', 0, '', '', 0, 0, '', '', NULL, '', 0, 0, '', '', '', 0, '', 0, '', '', '', 0, 0, '', '', '', 0, '0000-00-00 00:00:00'),
+(68, 34, 0, 0, 0, 0, '', 0, 0, '', '', 0, 0, '', 0, '', '', 0, 0, '', '', NULL, '', 0, 0, '', '', '', 0, '', 0, '', '', '', 0, 0, '', '', '', 0, '0000-00-00 00:00:00'),
+(69, 34, 0, 0, 0, 0, '', 0, 0, '', '', 0, 0, '', 0, '', '', 0, 0, '', '', NULL, '', 0, 0, '', '', '', 0, '', 0, '', '', '', 0, 0, '', '', '', 0, '0000-00-00 00:00:00'),
+(70, 35, 0, 0, 0, 0, '', 0, 0, '', '', 0, 0, '', 0, '', '', 0, 0, '', '', NULL, '', 0, 0, '', '', '', 0, '', 0, '', '', '', 0, 0, '', '', '', 0, '0000-00-00 00:00:00'),
+(71, 35, 0, 0, 0, 0, '', 0, 0, '', '', 0, 0, '', 0, '', '', 0, 0, '', '', NULL, '', 0, 0, '', '', '', 0, '', 0, '', '', '', 0, 0, '', '', '', 0, '0000-00-00 00:00:00'),
+(72, 35, 0, 0, 0, 0, '', 0, 0, '', '', 0, 0, '', 0, '', '', 0, 0, '', '', NULL, '', 0, 0, '', '', '', 0, '', 0, '', '', '', 0, 0, '', '', '', 0, '0000-00-00 00:00:00'),
+(73, 36, 0, 0, 0, 0, '', 0, 0, '', '', 0, 0, '', 0, '', '', 0, 0, '', '', NULL, '', 0, 0, '', '', '', 0, '', 0, '', '', '', 0, 0, '', '', '', 0, '0000-00-00 00:00:00'),
+(74, 36, 0, 0, 0, 0, '', 0, 0, '', '', 0, 0, '', 0, '', '', 0, 0, '', '', NULL, '', 0, 0, '', '', '', 0, '', 0, '', '', '', 0, 0, '', '', '', 0, '0000-00-00 00:00:00'),
+(75, 36, 0, 0, 0, 0, '', 0, 0, '', '', 0, 0, '', 0, '', '', 0, 0, '', '', NULL, '', 0, 0, '', '', '', 0, '', 0, '', '', '', 0, 0, '', '', '', 0, '0000-00-00 00:00:00'),
+(76, 37, 0, 0, 0, 0, '', 0, 0, '', '', 0, 0, '', 0, '', '', 0, 0, '', '', NULL, '', 0, 0, '', '', '', 0, '', 0, '', '', '', 0, 0, '', '', '', 0, '0000-00-00 00:00:00'),
+(77, 37, 0, 0, 0, 0, '', 0, 0, '', '', 0, 0, '', 0, '', '', 0, 0, '', '', NULL, '', 0, 0, '', '', '', 0, '', 0, '', '', '', 0, 0, '', '', '', 0, '0000-00-00 00:00:00'),
+(78, 37, 0, 0, 0, 0, '', 0, 0, '', '', 0, 0, '', 0, '', '', 0, 0, '', '', NULL, '', 0, 0, '', '', '', 0, '', 0, '', '', '', 0, 0, '', '', '', 0, '0000-00-00 00:00:00'),
+(79, 37, 0, 0, 0, 0, '', 0, 0, '', '', 0, 0, '', 0, '', '', 0, 0, '', '', NULL, '', 0, 0, '', '', '', 0, '', 0, '', '', '', 0, 0, '', '', '', 0, '0000-00-00 00:00:00'),
+(80, 37, 0, 0, 0, 0, '', 0, 0, '', '', 0, 0, '', 0, '', '', 0, 0, '', '', NULL, '', 0, 0, '', '', '', 0, '', 0, '', '', '', 0, 0, '', '', '', 0, '0000-00-00 00:00:00'),
+(81, 37, 0, 0, 0, 0, '', 0, 0, '', '', 0, 0, '', 0, '', '', 0, 0, '', '', NULL, '', 0, 0, '', '', '', 0, '', 0, '', '', '', 0, 0, '', '', '', 0, '0000-00-00 00:00:00'),
+(82, 39, 0, 0, 0, 0, '', 0, 0, '', '', 0, 0, '', 0, '', '', 0, 0, '', '', NULL, '', 0, 0, '', '', '', 0, '', 0, '', '', '', 0, 0, '', '', '', 0, '0000-00-00 00:00:00'),
+(83, 39, 0, 0, 0, 0, '', 0, 0, '', '', 0, 0, '', 0, '', '', 0, 0, '', '', NULL, '', 0, 0, '', '', '', 0, '', 0, '', '', '', 0, 0, '', '', '', 0, '0000-00-00 00:00:00'),
+(84, 39, 0, 0, 0, 0, '', 0, 0, '', '', 0, 0, '', 0, '', '', 0, 0, '', '', NULL, '', 0, 0, '', '', '', 0, '', 0, '', '', '', 0, 0, '', '', '', 0, '0000-00-00 00:00:00'),
+(85, 40, 0, 0, 0, 0, '', 0, 0, '', '', 0, 0, '', 0, '', '', 0, 0, '', '', NULL, '', 0, 0, '', '', '', 0, '', 0, '', '', '', 0, 0, '', '', '', 0, '0000-00-00 00:00:00'),
+(86, 40, 0, 0, 0, 0, '', 0, 0, '', '', 0, 0, '', 0, '', '', 0, 0, '', '', NULL, '', 0, 0, '', '', '', 0, '', 0, '', '', '', 0, 0, '', '', '', 0, '0000-00-00 00:00:00'),
+(87, 40, 0, 0, 0, 0, '', 0, 0, '', '', 0, 0, '', 0, '', '', 0, 0, '', '', NULL, '', 0, 0, '', '', '', 0, '', 0, '', '', '', 0, 0, '', '', '', 0, '0000-00-00 00:00:00'),
+(88, 41, 0, 0, 0, 0, '', 0, 0, '', '', 0, 0, '', 0, '', '', 0, 0, '', '', NULL, '', 0, 0, '', '', '', 0, '', 0, '', '', '', 0, 0, '', '', '', 0, '0000-00-00 00:00:00'),
+(89, 41, 0, 0, 0, 0, '', 0, 0, '', '', 0, 0, '', 0, '', '', 0, 0, '', '', NULL, '', 0, 0, '', '', '', 0, '', 0, '', '', '', 0, 0, '', '', '', 0, '0000-00-00 00:00:00'),
+(90, 41, 0, 0, 0, 0, '', 0, 0, '', '', 0, 0, '', 0, '', '', 0, 0, '', '', NULL, '', 0, 0, '', '', '', 0, '', 0, '', '', '', 0, 0, '', '', '', 0, '0000-00-00 00:00:00'),
+(91, 42, 0, 0, 0, 0, '', 0, 0, '', '', 0, 0, '', 0, '', '', 0, 0, '', '', NULL, '', 0, 0, '', '', '', 0, '', 0, '', '', '', 0, 0, '', '', '', 0, '0000-00-00 00:00:00'),
+(92, 42, 0, 0, 0, 0, '', 0, 0, '', '', 0, 0, '', 0, '', '', 0, 0, '', '', NULL, '', 0, 0, '', '', '', 0, '', 0, '', '', '', 0, 0, '', '', '', 0, '0000-00-00 00:00:00'),
+(93, 42, 0, 0, 0, 0, '', 0, 0, '', '', 0, 0, '', 0, '', '', 0, 0, '', '', NULL, '', 0, 0, '', '', '', 0, '', 0, '', '', '', 0, 0, '', '', '', 0, '0000-00-00 00:00:00'),
+(94, 44, 1, 1, 1, 1, 'product_owner', 1, 1, 'development_team', 'product_owner', 0, 2, 'roduct_owner', 1, 'scrum_master', 'product_backlog', 1, 1, 'scrum_master', 'scrum_master', 0, 'story_points', 2, 2, '', 'scrum_master', 'product_owner,', 22, '2', 2, 'start_of_sprint', 'scrum_master', 'scrum_master', 1, 2, '2', '2', 'scrum_master', 0, '0000-00-00 00:00:00'),
+(95, 44, 2, 2, 2, 2, 'product_owner', 1, 0, 'scrum_master', 'development_team', 0, 1, 'scrum_master', 1, 'scrum_master', 'product_backlog', 1, 0, 'quality_engineer', 'product_owner', 0, 'hour_units', 2, 2, '', 'scrum_master', 'scrum_master,', 2, '2', 2, 'middle_of_sprint', 'product_owner', 'product_owner', 0, 2, '2', '2', 'scrum_master', 0, '0000-00-00 00:00:00'),
+(96, 45, 0, 0, 0, 0, '', 0, 0, '', '', 0, 0, '', 0, '', '', 0, 0, '', '', 0, '', 0, 0, '', '', '', 0, '', 0, '', '', '', 0, 0, '', '', '', 0, '0000-00-00 00:00:00'),
+(97, 45, 0, 0, 0, 0, '', 0, 0, '', '', 0, 0, '', 0, '', '', 0, 0, '', '', 0, '', 0, 0, '', '', '', 0, '', 0, '', '', '', 0, 0, '', '', '', 0, '0000-00-00 00:00:00'),
+(98, 46, 0, 0, 0, 0, '', 0, 0, '', '', 0, 0, '', 0, '', '', 0, 0, '', '', 0, '', 0, 0, '', '', '', 0, '', 0, '', '', '', 0, 0, '', '', '', 0, '0000-00-00 00:00:00'),
+(99, 46, 0, 0, 0, 0, '', 0, 0, '', '', 0, 0, '', 0, '', '', 0, 0, '', '', 0, '', 0, 0, '', '', '', 0, '', 0, '', '', '', 0, 0, '', '', '', 0, '0000-00-00 00:00:00'),
+(100, 46, 0, 0, 0, 0, '', 0, 0, '', '', 0, 0, '', 0, '', '', 0, 0, '', '', 0, '', 0, 0, '', '', '', 0, '', 0, '', '', '', 0, 0, '', '', '', 0, '0000-00-00 00:00:00'),
+(101, 47, 0, 0, 0, 0, '', 0, 0, '', '', 0, 0, '', 0, '', '', 0, 0, '', '', 0, '', 0, 0, '', '', '', 0, '', 0, '', '', '', 0, 0, '', '', '', 0, '0000-00-00 00:00:00'),
+(102, 47, 0, 0, 0, 0, '', 0, 0, '', '', 0, 0, '', 0, '', '', 0, 0, '', '', 0, '', 0, 0, '', '', '', 0, '', 0, '', '', '', 0, 0, '', '', '', 0, '0000-00-00 00:00:00'),
+(103, 47, 0, 0, 0, 0, '', 0, 0, '', '', 0, 0, '', 0, '', '', 0, 0, '', '', 0, '', 0, 0, '', '', '', 0, '', 0, '', '', '', 0, 0, '', '', '', 0, '0000-00-00 00:00:00'),
+(104, 48, 0, 0, 0, 0, '', 0, 0, '', '', 0, 0, '', 0, '', '', 0, 0, '', '', 0, '', 0, 0, '', '', '', 0, '', 0, '', '', '', 0, 0, '', '', '', 0, '0000-00-00 00:00:00'),
+(105, 48, 0, 0, 0, 0, '', 0, 0, '', '', 0, 0, '', 0, '', '', 0, 0, '', '', 0, '', 0, 0, '', '', '', 0, '', 0, '', '', '', 0, 0, '', '', '', 0, '0000-00-00 00:00:00'),
+(106, 48, 0, 0, 0, 0, '', 0, 0, '', '', 0, 0, '', 0, '', '', 0, 0, '', '', 0, '', 0, 0, '', '', '', 0, '', 0, '', '', '', 0, 0, '', '', '', 0, '0000-00-00 00:00:00'),
+(107, 49, 0, 0, 0, 0, '', 0, 0, '', '', 0, 0, '', 0, '', '', 0, 0, '', '', 0, '', 0, 0, '', '', '', 0, '', 0, '', '', '', 0, 0, '', '', '', 0, '0000-00-00 00:00:00'),
+(108, 49, 0, 0, 0, 0, '', 0, 0, '', '', 0, 0, '', 0, '', '', 0, 0, '', '', 0, '', 0, 0, '', '', '', 0, '', 0, '', '', '', 0, 0, '', '', '', 0, '0000-00-00 00:00:00'),
+(109, 49, 0, 0, 0, 0, '', 0, 0, '', '', 0, 0, '', 0, '', '', 0, 0, '', '', 0, '', 0, 0, '', '', '', 0, '', 0, '', '', '', 0, 0, '', '', '', 0, '0000-00-00 00:00:00'),
+(110, 50, 0, 0, 0, 0, '', 0, 0, '', '', 0, 0, '', 0, '', '', 0, 0, '', '', 0, '', 0, 0, '', '', '', 0, '', 0, '', '', '', 0, 0, '', '', '', 0, '0000-00-00 00:00:00'),
+(111, 50, 0, 0, 0, 0, '', 0, 0, '', '', 0, 0, '', 0, '', '', 0, 0, '', '', 0, '', 0, 0, '', '', '', 0, '', 0, '', '', '', 0, 0, '', '', '', 0, '0000-00-00 00:00:00'),
+(112, 50, 0, 0, 0, 0, '', 0, 0, '', '', 0, 0, '', 0, '', '', 0, 0, '', '', 0, '', 0, 0, '', '', '', 0, '', 0, '', '', '', 0, 0, '', '', '', 0, '0000-00-00 00:00:00'),
+(113, 51, 0, 0, 0, 0, '', 0, 0, '', '', 0, 0, '', 0, '', '', 0, 0, '', '', 0, '', 0, 0, '', '', '', 0, '', 0, '', '', '', 0, 0, '', '', '', 0, '0000-00-00 00:00:00'),
+(114, 51, 0, 0, 0, 0, '', 0, 0, '', '', 0, 0, '', 0, '', '', 0, 0, '', '', 0, '', 0, 0, '', '', '', 0, '', 0, '', '', '', 0, 0, '', '', '', 0, '0000-00-00 00:00:00'),
+(115, 52, 0, 0, 0, 0, '', 0, 0, '', '', 0, 0, '', 0, '', '', 0, 0, '', '', 0, '', 0, 0, '', '', '', 0, '', 0, '', '', '', 0, 0, '', '', '', 0, '0000-00-00 00:00:00'),
+(116, 52, 0, 0, 0, 0, '', 0, 0, '', '', 0, 0, '', 0, '', '', 0, 0, '', '', 0, '', 0, 0, '', '', '', 0, '', 0, '', '', '', 0, 0, '', '', '', 0, '0000-00-00 00:00:00'),
+(117, 53, 0, 0, 0, 0, '', 0, 0, '', '', 0, 0, '', 0, '', '', 0, 0, '', '', 0, '', 0, 0, '', '', '', 0, '', 0, '', '', '', 0, 0, '', '', '', 0, '0000-00-00 00:00:00'),
+(118, 53, 0, 0, 0, 0, '', 0, 0, '', '', 0, 0, '', 0, '', '', 0, 0, '', '', 0, '', 0, 0, '', '', '', 0, '', 0, '', '', '', 0, 0, '', '', '', 0, '0000-00-00 00:00:00'),
+(119, 54, 0, 0, 0, 0, '', 0, 0, '', '', 0, 0, '', 0, '', '', 0, 0, '', '', 0, '', 0, 0, '', '', '', 0, '', 0, '', '', '', 0, 0, '', '', '', 0, '0000-00-00 00:00:00'),
+(120, 54, 0, 0, 0, 0, '', 0, 0, '', '', 0, 0, '', 0, '', '', 0, 0, '', '', 0, '', 0, 0, '', '', '', 0, '', 0, '', '', '', 0, 0, '', '', '', 0, '0000-00-00 00:00:00'),
+(121, 55, 0, 0, 0, 0, '', 0, 0, '', '', 0, 0, '', 0, '', '', 0, 0, '', '', 0, '', 0, 0, '', '', '', 0, '', 0, '', '', '', 0, 0, '', '', '', 0, '0000-00-00 00:00:00'),
+(122, 55, 0, 0, 0, 0, '', 0, 0, '', '', 0, 0, '', 0, '', '', 0, 0, '', '', 0, '', 0, 0, '', '', '', 0, '', 0, '', '', '', 0, 0, '', '', '', 0, '0000-00-00 00:00:00'),
+(123, 56, 0, 0, 0, 0, '', 0, 0, '', '', 0, 0, '', 0, '', '', 0, 0, '', '', 0, '', 0, 0, '', '', '', 0, '', 0, '', '', '', 0, 0, '', '', '', 0, '0000-00-00 00:00:00'),
+(124, 56, 0, 0, 0, 0, '', 0, 0, '', '', 0, 0, '', 0, '', '', 0, 0, '', '', 0, '', 0, 0, '', '', '', 0, '', 0, '', '', '', 0, 0, '', '', '', 0, '0000-00-00 00:00:00'),
+(125, 57, 0, 0, 0, 0, '', 0, 0, '', '', 0, 0, '', 0, '', '', 0, 0, '', '', 0, '', 0, 0, '', '', '', 0, '', 0, '', '', '', 0, 0, '', '', '', 0, '0000-00-00 00:00:00'),
+(126, 57, 0, 0, 0, 0, '', 0, 0, '', '', 0, 0, '', 0, '', '', 0, 0, '', '', 0, '', 0, 0, '', '', '', 0, '', 0, '', '', '', 0, 0, '', '', '', 0, '0000-00-00 00:00:00'),
+(127, 58, 0, 0, 0, 0, '', 0, 0, '', '', 0, 0, '', 0, '', '', 0, 0, '', '', 0, '', 0, 0, '', '', '', 0, '', 0, '', '', '', 0, 0, '', '', '', 0, '0000-00-00 00:00:00'),
+(128, 58, 0, 0, 0, 0, '', 0, 0, '', '', 0, 0, '', 0, '', '', 0, 0, '', '', 0, '', 0, 0, '', '', '', 0, '', 0, '', '', '', 0, 0, '', '', '', 0, '0000-00-00 00:00:00'),
+(129, 59, 0, 0, 0, 0, '', 0, 0, '', '', 0, 0, '', 0, '', '', 0, 0, '', '', 0, '', 0, 0, '', '', '', 0, '', 0, '', '', '', 0, 0, '', '', '', 0, '0000-00-00 00:00:00'),
+(130, 59, 0, 0, 0, 0, '', 0, 0, '', '', 0, 0, '', 0, '', '', 0, 0, '', '', 0, '', 0, 0, '', '', '', 0, '', 0, '', '', '', 0, 0, '', '', '', 0, '0000-00-00 00:00:00'),
+(131, 60, 0, 0, 0, 0, '', 0, 0, '', '', 0, 0, '', 0, '', '', 0, 0, '', '', 0, '', 0, 0, '', '', '', 0, '', 0, '', '', '', 0, 0, '', '', '', 0, '0000-00-00 00:00:00'),
+(132, 60, 0, 0, 0, 0, '', 0, 0, '', '', 0, 0, '', 0, '', '', 0, 0, '', '', 0, '', 0, 0, '', '', '', 0, '', 0, '', '', '', 0, 0, '', '', '', 0, '0000-00-00 00:00:00'),
+(133, 61, 2, 6, 7, 8, 'development_team', 1, 0, 'scrum_master', 'development_team', 0, 0, '', 0, '', '', 0, 0, '', '', 1, '', 6, 0, '', 'quality_engineer', 'product_owner,development_team,', 0, '', 0, '', '', '', 1, 7, 'bad good improvements', '3', 'product_owner', 0, '0000-00-00 00:00:00'),
+(134, 61, 0, 0, 0, 0, '', 0, 0, '', '', 0, 0, '', 0, '', '', 0, 0, '', '', 0, '', 0, 0, '', '', '', 0, '', 0, '', '', '', 0, 0, '', '', '', 0, '0000-00-00 00:00:00'),
+(135, 61, 0, 0, 0, 0, '', 0, 0, '', '', 0, 0, '', 0, '', '', 0, 0, '', '', 0, '', 0, 0, '', '', '', 0, '', 0, '', '', '', 0, 0, '', '', '', 0, '0000-00-00 00:00:00'),
+(136, 61, 0, 0, 0, 0, '', 0, 0, '', '', 0, 0, '', 0, '', '', 0, 0, '', '', 0, '', 0, 0, '', '', '', 0, '', 0, '', '', '', 0, 0, '', '', '', 0, '0000-00-00 00:00:00'),
+(137, 61, 0, 0, 0, 0, '', 0, 0, '', '', 0, 0, '', 0, '', '', 0, 0, '', '', 0, '', 0, 0, '', '', '', 0, '', 0, '', '', '', 0, 0, '', '', '', 0, '0000-00-00 00:00:00'),
+(138, 61, 0, 0, 0, 0, '', 0, 0, '', '', 0, 0, '', 0, '', '', 0, 0, '', '', 0, '', 0, 0, '', '', '', 0, '', 0, '', '', '', 0, 0, '', '', '', 0, '0000-00-00 00:00:00'),
+(139, 64, 0, 0, 0, 0, '', 0, 0, '', '', 0, 0, '', 0, '', '', 0, 0, '', '', 0, '', 0, 0, '', '', '', 0, '', 0, '', '', '', 0, 0, '', '', '', 0, '0000-00-00 00:00:00'),
+(140, 64, 0, 0, 0, 0, '', 0, 0, '', '', 0, 0, '', 0, '', '', 0, 0, '', '', 0, '', 0, 0, '', '', '', 0, '', 0, '', '', '', 0, 0, '', '', '', 0, '0000-00-00 00:00:00'),
+(141, 65, 3, 3, 3, 3, 'development_team', 1, 1, 'product_owner', 'development_team', 0, 0, '', 0, '', '', 0, 0, '', '', 1, '', 1, 1, '', 'product_owner', 'development_team,team_lead,', 0, '', 0, '', '', '', 0, 0, '', '', '', 0, '0000-00-00 00:00:00'),
+(142, 65, 0, 0, 0, 0, '', 0, 0, '', '', 0, 0, '', 0, '', '', 0, 0, '', '', 0, '', 0, 0, '', '', '', 0, '', 0, '', '', '', 0, 0, '', '', '', 0, '0000-00-00 00:00:00'),
+(143, 66, 15, 15, 14, 6, 'product_owner', 1, 0, 'product_owner', 'product_owner', 1, 15, 'scrum_master', 4, 'scrum_master', 'latest_shippable_product,', 1, 1, 'product_owner,', 'team_lead', 1, 'hour_units', 15, 0, '', 'product_owner', 'product_owner,', 2, 'demo', 4, 'middle_of_sprint', 'scrum_master', 'developer', 1, 2, 'improvement', 'action items', 'scrum_master', 0, '0000-00-00 00:00:00'),
+(144, 66, 0, 0, 0, 0, '', 0, 0, '', '', 0, 0, '', 0, '', '', 0, 0, '', '', 0, '', 0, 0, '', '', '', 0, '', 0, '', '', '', 0, 0, '', '', '', 0, '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -157,21 +438,84 @@ CREATE TABLE `scrum_events` (
 -- Table structure for table `scrum_pillars`
 --
 
-CREATE TABLE `scrum_pillars` (
-  `id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `scrum_pillars` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `project_id` int(11) DEFAULT NULL,
-  `is_processes_exist` tinyint(1) DEFAULT NULL,
-  `no_of_figures_process` int(11) DEFAULT NULL,
-  `no_of_tables_process` int(11) DEFAULT NULL,
-  `no_of_sections_process` int(11) DEFAULT NULL,
-  `is_process_shared` tinyint(1) DEFAULT NULL,
   `is_def_of_done_exists` tinyint(1) DEFAULT NULL,
   `communication_def_of_done` text,
   `inspect_progress_sprint_goal` text,
-  `scrum_adapted` text,
   `is_deleted` tinyint(1) DEFAULT NULL,
-  `created_date` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `created_date` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `project_id` (`project_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=67 ;
+
+--
+-- Dumping data for table `scrum_pillars`
+--
+
+INSERT INTO `scrum_pillars` (`id`, `project_id`, `is_def_of_done_exists`, `communication_def_of_done`, `inspect_progress_sprint_goal`, `is_deleted`, `created_date`) VALUES
+(6, 11, 1, '', '2', 0, '0000-00-00 00:00:00'),
+(7, 12, 0, '', '', 0, '0000-00-00 00:00:00'),
+(8, 12, 0, '', '', 0, '0000-00-00 00:00:00'),
+(9, 13, 0, '', '', 0, '0000-00-00 00:00:00'),
+(10, 13, 0, '', '', 0, '0000-00-00 00:00:00'),
+(11, 14, 0, '', '', 0, '0000-00-00 00:00:00'),
+(12, 14, 0, '', '', 0, '0000-00-00 00:00:00'),
+(13, 15, 1, '1', '1', 0, '0000-00-00 00:00:00'),
+(14, 15, 1, '1', '1', 0, '0000-00-00 00:00:00'),
+(15, 16, 1, '1', '1', 0, '0000-00-00 00:00:00'),
+(16, 16, 1, '1', '1', 0, '0000-00-00 00:00:00'),
+(17, 17, 1, '1', '1', 0, '0000-00-00 00:00:00'),
+(18, 18, 1, '1', '1', 0, '0000-00-00 00:00:00'),
+(19, 19, 1, '1', '1', 0, '0000-00-00 00:00:00'),
+(20, 20, 1, '1', '1', 0, '0000-00-00 00:00:00'),
+(21, 21, 1, '0.5', '1', 0, '0000-00-00 00:00:00'),
+(22, 22, 1, '0.5', '1', 0, '0000-00-00 00:00:00'),
+(23, 23, 1, '0.5', '1', 0, '0000-00-00 00:00:00'),
+(24, 24, 1, '0.5', '1', 0, '0000-00-00 00:00:00'),
+(25, 25, 1, '', '', 0, '0000-00-00 00:00:00'),
+(26, 26, 1, '', '', 0, '0000-00-00 00:00:00'),
+(27, 27, 1, '', '', 0, '0000-00-00 00:00:00'),
+(28, 28, 1, '', '', 0, '0000-00-00 00:00:00'),
+(29, 29, 1, '', '', 0, '0000-00-00 00:00:00'),
+(30, 30, 1, '', '', 0, '0000-00-00 00:00:00'),
+(31, 31, 1, '', '', 0, '0000-00-00 00:00:00'),
+(32, 32, 1, '', '', 0, '0000-00-00 00:00:00'),
+(33, 33, 1, '', '', 0, '0000-00-00 00:00:00'),
+(34, 34, 1, '', '', 0, '0000-00-00 00:00:00'),
+(35, 35, 1, '', '', 0, '0000-00-00 00:00:00'),
+(36, 36, 1, '', '', 0, '0000-00-00 00:00:00'),
+(37, 37, 1, '', '', 0, '0000-00-00 00:00:00'),
+(38, 37, 0, '', '', 0, '0000-00-00 00:00:00'),
+(39, 39, 1, '', '', 0, '0000-00-00 00:00:00'),
+(40, 40, 1, '', '', 0, '0000-00-00 00:00:00'),
+(41, 41, 1, '', '', 0, '0000-00-00 00:00:00'),
+(42, 42, 1, '', '', 0, '0000-00-00 00:00:00'),
+(43, 43, 0, '', '', 0, '0000-00-00 00:00:00'),
+(44, 44, 0, '', '', 0, '0000-00-00 00:00:00'),
+(45, 45, 0, '', '1', 0, '0000-00-00 00:00:00'),
+(46, 46, 0, '', '1', 0, '0000-00-00 00:00:00'),
+(47, 47, 0, '', '1', 0, '0000-00-00 00:00:00'),
+(48, 48, 0, '', '1', 0, '0000-00-00 00:00:00'),
+(49, 49, 0, '', '1', 0, '0000-00-00 00:00:00'),
+(50, 50, 0, '', '1', 0, '0000-00-00 00:00:00'),
+(51, 51, 0, '', '1', 0, '0000-00-00 00:00:00'),
+(52, 52, 0, '', '1', 0, '0000-00-00 00:00:00'),
+(53, 53, 0, '', '1', 0, '0000-00-00 00:00:00'),
+(54, 54, 0, '', '1', 0, '0000-00-00 00:00:00'),
+(55, 55, 0, '', '1', 0, '0000-00-00 00:00:00'),
+(56, 56, 0, '', '1', 0, '0000-00-00 00:00:00'),
+(57, 57, 0, '', '1', 0, '0000-00-00 00:00:00'),
+(58, 58, 0, '', '1', 0, '0000-00-00 00:00:00'),
+(59, 59, 0, '', '1', 0, '0000-00-00 00:00:00'),
+(60, 60, 0, '', '1', 0, '0000-00-00 00:00:00'),
+(61, 61, 1, '1', '1', 0, '0000-00-00 00:00:00'),
+(62, 61, 0, '', '', 0, '0000-00-00 00:00:00'),
+(63, 61, 0, '', '', 0, '0000-00-00 00:00:00'),
+(64, 64, 0, '', '1', 0, '0000-00-00 00:00:00'),
+(65, 65, 1, '0.5', '1', 0, '0000-00-00 00:00:00'),
+(66, 66, 1, '1', '1', 0, '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -179,19 +523,19 @@ CREATE TABLE `scrum_pillars` (
 -- Table structure for table `scrum_team`
 --
 
-CREATE TABLE `scrum_team` (
-  `id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `scrum_team` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `project_id` int(11) DEFAULT NULL,
   `is_prod_owner_exists` tinyint(1) DEFAULT NULL,
   `prod_owner_responsibility` text,
-  `prod_owner_authority` enum('full','partial') DEFAULT NULL,
+  `prod_owner_authority` double DEFAULT NULL,
   `num_of_prod_owner` int(11) DEFAULT NULL,
-  `prod_owner_type` enum('customer','customer_representer','company_representer') DEFAULT NULL,
+  `prod_owner_type` text,
   `dev_team_report` varchar(50) DEFAULT NULL,
   `skills_set` varchar(50) DEFAULT NULL,
   `is_subteam` int(11) DEFAULT NULL,
   `team_size` int(11) DEFAULT NULL,
-  `dev_team_accountable` enum('product_owner','scrum_master','project_manager','development_team') DEFAULT NULL,
+  `dev_team_accountable` text,
   `is_prod_owner_part_of_dev_team` tinyint(1) DEFAULT NULL,
   `is_scrum_master_exists` tinyint(1) DEFAULT NULL,
   `scrum_master_reponsibilities` text,
@@ -199,9 +543,70 @@ CREATE TABLE `scrum_team` (
   `sc_master_services_prod_owner` text,
   `sc_master_services_org` text,
   `is_scrum_master_part_of_dev_team` tinyint(1) DEFAULT NULL,
+  `qa_perform_dev` tinyint(4) DEFAULT NULL,
+  `dev_perform_qa` tinyint(4) DEFAULT NULL,
   `is_deleted` tinyint(1) DEFAULT NULL,
-  `created_date` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `created_date` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `project_id` (`project_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=52 ;
+
+--
+-- Dumping data for table `scrum_team`
+--
+
+INSERT INTO `scrum_team` (`id`, `project_id`, `is_prod_owner_exists`, `prod_owner_responsibility`, `prod_owner_authority`, `num_of_prod_owner`, `prod_owner_type`, `dev_team_report`, `skills_set`, `is_subteam`, `team_size`, `dev_team_accountable`, `is_prod_owner_part_of_dev_team`, `is_scrum_master_exists`, `scrum_master_reponsibilities`, `sc_master_services_dev_team`, `sc_master_services_prod_owner`, `sc_master_services_org`, `is_scrum_master_part_of_dev_team`, `qa_perform_dev`, `dev_perform_qa`, `is_deleted`, `created_date`) VALUES
+(1, 11, 1, 'manage product backlog', 1, 1, 'customer', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(2, 17, 0, 'Maximizing_value_of_product_and_work_of_development_team', 0.5, 0, 'test', 'scrum_master', NULL, 1, 2, 'development_team', 1, 1, 'responsible_to_make_sprint_successful', 'removing_impediments', 'provides_visibility_and_progress_about_product', 'facilitating_scrum_event', 1, 1, 0, 0, '0000-00-00 00:00:00'),
+(3, 18, 0, 'Maximizing_value_of_product_and_work_of_development_team', 0, 1, '1', '', NULL, 0, 1, '', 0, 0, '', '', '', '', 0, 0, 0, 0, '0000-00-00 00:00:00'),
+(4, 19, 1, 'Maximizing_value_of_product_and_work_of_development_team', 0, 1, '1', 'scrum_master', NULL, 1, 1, 'scrum_master', 0, 1, 'control_team_interactions', 'help_learn_self_organization_and_cross_functionality', 'provides_visibility_and_progress_about_product', 'facilitating_scrum_event', 1, 1, 1, 0, '0000-00-00 00:00:00'),
+(5, 20, 1, 'Maximizing_value_of_product_and_work_of_development_team', 0, 1, '1', 'scrum_master', NULL, 1, 1, 'scrum_master', 0, 1, 'responsible_to_make_sprint_successful', 'help_learn_self_organization_and_cross_functionality', 'provides_visibility_and_progress_about_product', 'facilitating_scrum_event', 1, 1, 1, 0, '0000-00-00 00:00:00'),
+(6, 21, 0, 'Maximizing_value_of_product_and_work_of_development_team,', 0, 1, '2', 'scrum_master', NULL, 1, 3, 'product_owner', 1, 1, 'responsible_to_make_sprint_successful', 'removing_impediments', 'provides_visibility_and_progress_about_product', 'leading_and_coaching', 1, 0, 1, 0, '0000-00-00 00:00:00'),
+(7, 22, 0, 'Maximizing_value_of_product_and_work_of_development_team,', 0, 1, '2', 'scrum_master', NULL, 1, 3, 'product_owner', 1, 1, 'responsible_to_make_sprint_successful', 'removing_impediments', 'provides_visibility_and_progress_about_product', 'leading_and_coaching', 1, 0, 1, 0, '0000-00-00 00:00:00'),
+(8, 23, 0, 'Maximizing_value_of_product_and_work_of_development_team,', 0, 1, '2', 'scrum_master', NULL, 1, 3, 'product_owner', 1, 1, 'responsible_to_make_sprint_successful', 'removing_impediments', 'provides_visibility_and_progress_about_product', 'leading_and_coaching', 1, 0, 1, 0, '0000-00-00 00:00:00'),
+(9, 24, 0, 'Maximizing_value_of_product_and_work_of_development_team,', 0, 1, '2', 'scrum_master', NULL, 1, 3, 'product_owner', 1, 1, 'responsible_to_make_sprint_successful', 'removing_impediments', 'provides_visibility_and_progress_about_product', 'leading_and_coaching', 1, 0, 1, 0, '0000-00-00 00:00:00'),
+(10, 25, 0, 'Maximizing_value_of_product_and_work_of_development_team,', 0.5, 1, '2', 'scrum_master', NULL, 0, 2, '', 1, 1, 'responsible_to_make_sprint_successful', 'help_learn_self_organization_and_cross_functionality', 'provides_visibility_and_progress_about_product', 'leading_and_coaching', 0, 1, 0, 0, '0000-00-00 00:00:00'),
+(11, 26, 0, 'Array', 0.5, 1, '2', 'scrum_master', NULL, 0, 2, '', 1, 1, 'responsible_to_make_sprint_successful', 'help_learn_self_organization_and_cross_functionality', 'provides_visibility_and_progress_about_product', 'leading_and_coaching', 0, 1, 0, 0, '0000-00-00 00:00:00'),
+(12, 27, 0, 'Array', 0.5, 1, '2', 'scrum_master', NULL, 0, 2, '', 1, 1, 'responsible_to_make_sprint_successful', 'help_learn_self_organization_and_cross_functionality', 'provides_visibility_and_progress_about_product', 'leading_and_coaching', 0, 1, 0, 0, '0000-00-00 00:00:00'),
+(13, 28, 0, 'Array', 0.5, 1, '2', 'scrum_master', NULL, 0, 2, '', 1, 1, 'responsible_to_make_sprint_successful', 'help_learn_self_organization_and_cross_functionality', 'provides_visibility_and_progress_about_product', 'leading_and_coaching', 0, 1, 0, 0, '0000-00-00 00:00:00'),
+(14, 29, 0, 'Array', 0.5, 1, '2', 'scrum_master', NULL, 0, 2, '', 1, 1, 'responsible_to_make_sprint_successful', 'help_learn_self_organization_and_cross_functionality', 'provides_visibility_and_progress_about_product', 'leading_and_coaching', 0, 1, 0, 0, '0000-00-00 00:00:00'),
+(15, 30, 0, 'write_acceptance_criteria,Maximizing_value_of_product_and_work_of_development_team,', 0.5, 1, '2', 'scrum_master', NULL, 0, 2, '', 1, 1, '', '', '', '', 0, 1, 0, 0, '0000-00-00 00:00:00'),
+(16, 31, 0, 'write_acceptance_criteria,Maximizing_value_of_product_and_work_of_development_team,', 0.5, 1, '2', 'scrum_master', NULL, 1, 2, 'scrum_master', 1, 1, '', '', '', '', 1, 1, 0, 0, '0000-00-00 00:00:00'),
+(17, 32, 0, 'write_acceptance_criteria,Maximizing_value_of_product_and_work_of_development_team,', 0.5, 1, '2', 'scrum_master', NULL, 1, 2, 'scrum_master', 1, 1, '', '', '', '', 1, 1, 0, 0, '0000-00-00 00:00:00'),
+(18, 33, 0, 'write_acceptance_criteria,Maximizing_value_of_product_and_work_of_development_team,', 0.5, 1, '2', 'scrum_master', NULL, 1, 2, 'scrum_master', 1, 1, '', '', '', '', 1, 1, 0, 0, '0000-00-00 00:00:00'),
+(19, 34, 0, 'write_acceptance_criteria,Maximizing_value_of_product_and_work_of_development_team,', 0.5, 1, '2', 'scrum_master', NULL, 1, 2, 'scrum_master', 1, 1, '', '', '', '', 1, 1, 0, 0, '0000-00-00 00:00:00'),
+(20, 35, 0, 'write_acceptance_criteria,Maximizing_value_of_product_and_work_of_development_team,', 0.5, 1, '2', 'scrum_master', NULL, 1, 2, 'scrum_master', 1, 1, '', '', '', '', 1, 1, 0, 0, '0000-00-00 00:00:00'),
+(21, 36, 0, 'write_acceptance_criteria,Maximizing_value_of_product_and_work_of_development_team,', 0.5, 1, '2', 'scrum_master', NULL, 1, 2, 'scrum_master', 1, 1, '', '', '', '', 1, 1, 0, 0, '0000-00-00 00:00:00'),
+(22, 37, 0, 'write_acceptance_criteria,Maximizing_value_of_product_and_work_of_development_team,', 0.5, 1, '2', 'scrum_master', NULL, 1, 2, 'scrum_master', 1, 1, '', '', '', '', 1, 1, 0, 0, '0000-00-00 00:00:00'),
+(23, 37, 0, '', 0, 0, '', '', NULL, 0, 0, '', 0, 0, '', '', '', '', 0, 0, 0, 0, '0000-00-00 00:00:00'),
+(24, 39, 0, 'product_backlog_management,Maximizing_value_of_product_and_work_of_development_team,', 0.5, 1, '2', 'scrum_master', NULL, 1, 2, 'team_lead', 1, 1, 'control_team_interactions,responsible_to_make_sprint_successful,', 'facilitating_scrum_events,removing_impediments,', 'helps_product_owner_in_effective_backlog_management,provides_visibility_and_progress_about_product,', 'facilitating_scrum_event,leading_and_coaching,', 1, 1, 1, 0, '0000-00-00 00:00:00'),
+(25, 40, 0, 'product_backlog_management,Maximizing_value_of_product_and_work_of_development_team,', 0.5, 1, '2', 'scrum_master', NULL, 1, 2, 'team_lead', 1, 1, 'control_team_interactions,responsible_to_make_sprint_successful,', 'facilitating_scrum_events,removing_impediments,', 'helps_product_owner_in_effective_backlog_management,provides_visibility_and_progress_about_product,', 'facilitating_scrum_event,leading_and_coaching,', 1, 1, 1, 0, '0000-00-00 00:00:00'),
+(26, 41, 0, 'product_backlog_management,Maximizing_value_of_product_and_work_of_development_team,', 0.5, 1, '2', 'scrum_master', NULL, 1, 2, 'team_lead', 1, 1, 'control_team_interactions,responsible_to_make_sprint_successful,', 'facilitating_scrum_events,removing_impediments,', 'helps_product_owner_in_effective_backlog_management,provides_visibility_and_progress_about_product,', 'facilitating_scrum_event,leading_and_coaching,', 1, 1, 1, 0, '0000-00-00 00:00:00'),
+(27, 42, 0, 'product_backlog_management,Maximizing_value_of_product_and_work_of_development_team,', 0.5, 1, '2', 'scrum_master', NULL, 1, 2, 'team_lead', 1, 1, 'control_team_interactions,responsible_to_make_sprint_successful,', 'facilitating_scrum_events,removing_impediments,', 'helps_product_owner_in_effective_backlog_management,provides_visibility_and_progress_about_product,', 'facilitating_scrum_event,leading_and_coaching,', 1, 1, 1, 0, '0000-00-00 00:00:00'),
+(28, 43, 0, 'write_user_stories,', 1, 2, '2', 'product_owner', NULL, 0, 2, 'development_team', 0, 0, 'adherence_to_scrum_rules ,', 'coaching_team,', 'practicing_agility,', 'scrum_adoption,', 0, 0, 0, 0, '0000-00-00 00:00:00'),
+(29, 44, 0, 'write_user_stories,', 1, 2, '2', 'product_owner', NULL, 0, 2, 'development_team', 0, 0, 'adherence_to_scrum_rules ,', 'coaching_team,', 'practicing_agility,', 'scrum_adoption,', 0, 0, 0, 0, '0000-00-00 00:00:00'),
+(30, 45, 0, '', 0, 0, '', 'team_lead', NULL, 0, 3, 'product_owner', 0, 0, '', '', '', '', 1, 0, 0, 0, '0000-00-00 00:00:00'),
+(31, 46, 0, '', 0, 0, '', 'product_owner', NULL, 0, 2, 'development_team', 0, 0, '', '', '', '', 0, 0, 0, 0, '0000-00-00 00:00:00'),
+(32, 47, 0, '', 0, 0, '', 'product_owner', NULL, 0, 2, 'development_team', 0, 0, '', '', '', '', 0, 0, 0, 0, '0000-00-00 00:00:00'),
+(33, 48, 0, '', 0, 0, '', 'product_owner', NULL, 0, 2, 'development_team', 0, 0, '', '', '', '', 0, 0, 0, 0, '0000-00-00 00:00:00'),
+(34, 49, 0, '', 0, 0, '', 'product_owner', NULL, 0, 2, 'development_team', 0, 0, '', '', '', '', 0, 0, 0, 0, '0000-00-00 00:00:00'),
+(35, 50, 0, '', 0, 0, '', 'product_owner', NULL, 0, 2, 'development_team', 0, 0, '', '', '', '', 0, 0, 0, 0, '0000-00-00 00:00:00'),
+(36, 51, 0, '', 0, 0, '', 'product_owner', NULL, 0, 2, 'scrum_master', 0, 0, '', '', '', '', 0, 0, 0, 0, '0000-00-00 00:00:00'),
+(37, 52, 0, '', 0, 0, '', 'product_owner', NULL, 0, 2, 'scrum_master', 0, 0, '', '', '', '', 0, 0, 0, 0, '0000-00-00 00:00:00'),
+(38, 53, 0, '', 0, 0, '', 'product_owner', NULL, 0, 2, 'scrum_master', 0, 0, '', '', '', '', 0, 0, 0, 0, '0000-00-00 00:00:00'),
+(39, 54, 0, '', 0, 0, '', 'product_owner', NULL, 0, 2, 'scrum_master', 0, 0, '', '', '', '', 0, 0, 0, 0, '0000-00-00 00:00:00'),
+(40, 55, 0, '', 0, 0, '', 'product_owner', NULL, 0, 2, 'scrum_master', 0, 0, '', '', '', '', 0, 0, 0, 0, '0000-00-00 00:00:00'),
+(41, 56, 0, '', 0, 0, '', 'product_owner', NULL, 0, 2, 'scrum_master', 0, 0, '', '', '', '', 0, 0, 0, 0, '0000-00-00 00:00:00'),
+(42, 57, 0, '', 0, 0, '', 'product_owner', NULL, 0, 2, 'scrum_master', 0, 0, '', '', '', '', 0, 0, 0, 0, '0000-00-00 00:00:00'),
+(43, 58, 0, '', 0, 0, '', 'product_owner', NULL, 0, 2, 'scrum_master', 0, 0, '', '', '', '', 0, 0, 0, 0, '0000-00-00 00:00:00'),
+(44, 59, 0, '', 0, 0, '', 'product_owner', NULL, 0, 2, 'scrum_master', 0, 0, '', '', '', '', 0, 0, 0, 0, '0000-00-00 00:00:00'),
+(45, 60, 0, '', 0, 0, '', 'product_owner', NULL, 0, 2, 'scrum_master', 0, 0, '', '', '', '', 0, 0, 0, 0, '0000-00-00 00:00:00'),
+(46, 61, 1, 'write_acceptance_criteria,product_backlog_management,', 1, 1, 'customer', 'scrum_master', NULL, 1, 7, 'team_lead', 0, 0, '', '', '', '', 1, 0, 0, 0, '0000-00-00 00:00:00'),
+(47, 61, 0, '', 0, 0, '', '', NULL, 0, 0, '', 0, 0, '', '', '', '', 0, 0, 0, 0, '0000-00-00 00:00:00'),
+(48, 61, 0, '', 0, 0, '', '', NULL, 0, 0, '', 0, 0, '', '', '', '', 0, 0, 0, 0, '0000-00-00 00:00:00'),
+(49, 64, 0, '', 0, 0, '', 'product_owner', NULL, 0, 1, 'development_team', 0, 0, '', '', '', '', 0, 0, 0, 0, '0000-00-00 00:00:00'),
+(50, 65, 1, 'write_acceptance_criteria,product_backlog_management,', 1, 2, 'customer', 'product_owner', NULL, 1, -1, 'product_owner', 0, 0, '', '', '', '', 1, 0, 1, 0, '0000-00-00 00:00:00'),
+(51, 66, 1, 'write_acceptance_criteria,', 0.5, 2, 'customer', 'product_owner', NULL, 1, 4, 'product_owner', 0, 1, 'maximize_team_value,', 'help_learn_self_organization_and_cross_functionality,', 'helps_product_owner_in_effective_backlog_management,', 'facilitating_scrum_event,', 1, 1, 1, 0, '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -209,11 +614,12 @@ CREATE TABLE `scrum_team` (
 -- Table structure for table `skills_set`
 --
 
-CREATE TABLE `skills_set` (
-  `id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `skills_set` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(30) DEFAULT NULL,
-  `is_deleted` tinyint(1) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `is_deleted` tinyint(1) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -221,8 +627,8 @@ CREATE TABLE `skills_set` (
 -- Table structure for table `standard_scrum_artifacts`
 --
 
-CREATE TABLE `standard_scrum_artifacts` (
-  `id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `standard_scrum_artifacts` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `is_prod_backlog_exists` tinyint(1) DEFAULT NULL,
   `items_product_backlog` int(11) DEFAULT NULL,
   `prod_backlog_prioritize` enum('product_owner','project_manager','scrum_master','development_team') DEFAULT NULL,
@@ -236,8 +642,9 @@ CREATE TABLE `standard_scrum_artifacts` (
   `sprint_progress_tracking` text,
   `is_acceptance_criteria_defined` tinyint(1) DEFAULT NULL,
   `is_deleted` tinyint(1) DEFAULT NULL,
-  `created_date` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `created_date` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -245,8 +652,8 @@ CREATE TABLE `standard_scrum_artifacts` (
 -- Table structure for table `standard_scrum_events`
 --
 
-CREATE TABLE `standard_scrum_events` (
-  `id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `standard_scrum_events` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `sprint_duration` int(11) DEFAULT NULL,
   `num_of_planned_items` int(11) DEFAULT NULL,
   `num_of_delivered_items` int(11) DEFAULT NULL,
@@ -284,8 +691,9 @@ CREATE TABLE `standard_scrum_events` (
   `retro_output` text,
   `retro_scheduling` enum('product_owner','project_manager','scrum_master') DEFAULT NULL,
   `is_deleted` tinyint(1) DEFAULT NULL,
-  `created_date` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `created_date` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -293,8 +701,8 @@ CREATE TABLE `standard_scrum_events` (
 -- Table structure for table `standard_scrum_pillars`
 --
 
-CREATE TABLE `standard_scrum_pillars` (
-  `id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `standard_scrum_pillars` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `is_processes_exist` tinyint(1) DEFAULT NULL,
   `no_of_figures_process` int(11) DEFAULT NULL,
   `no_of_tables_process` int(11) DEFAULT NULL,
@@ -305,8 +713,9 @@ CREATE TABLE `standard_scrum_pillars` (
   `inspect_progress_sprint_goal` text,
   `scrum_adapted` text,
   `is_deleted` tinyint(1) DEFAULT NULL,
-  `created_date` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `created_date` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -314,8 +723,8 @@ CREATE TABLE `standard_scrum_pillars` (
 -- Table structure for table `standard_scrum_team`
 --
 
-CREATE TABLE `standard_scrum_team` (
-  `id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `standard_scrum_team` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `is_prod_owner_exists` tinyint(1) DEFAULT NULL,
   `prod_owner_responsibility` text,
   `prod_owner_authority` enum('full','partial') DEFAULT NULL,
@@ -334,8 +743,9 @@ CREATE TABLE `standard_scrum_team` (
   `sc_master_services_org` text,
   `is_scrum_master_part_of_dev_team` tinyint(1) DEFAULT NULL,
   `is_deleted` tinyint(1) DEFAULT NULL,
-  `created_date` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `created_date` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -343,168 +753,21 @@ CREATE TABLE `standard_scrum_team` (
 -- Table structure for table `technologies`
 --
 
-CREATE TABLE `technologies` (
-  `id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `technologies` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(30) DEFAULT NULL,
-  `is_deleted` tinyint(1) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `is_deleted` tinyint(1) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
--- Indexes for dumped tables
+-- Dumping data for table `technologies`
 --
 
---
--- Indexes for table `contact_us`
---
-ALTER TABLE `contact_us`
-  ADD PRIMARY KEY (`id`);
+INSERT INTO `technologies` (`id`, `name`, `is_deleted`) VALUES
+(1, '', NULL),
+(2, 'android', NULL);
 
---
--- Indexes for table `project_data`
---
-ALTER TABLE `project_data`
-  ADD PRIMARY KEY (`project_id`),
-  ADD KEY `company_id` (`company_id`);
-
---
--- Indexes for table `registration`
---
-ALTER TABLE `registration`
-  ADD PRIMARY KEY (`company_id`);
-
---
--- Indexes for table `scrum_artifacts`
---
-ALTER TABLE `scrum_artifacts`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `project_id` (`project_id`);
-
---
--- Indexes for table `scrum_events`
---
-ALTER TABLE `scrum_events`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `project_id` (`project_id`);
-
---
--- Indexes for table `scrum_pillars`
---
-ALTER TABLE `scrum_pillars`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `project_id` (`project_id`);
-
---
--- Indexes for table `scrum_team`
---
-ALTER TABLE `scrum_team`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `project_id` (`project_id`);
-
---
--- Indexes for table `skills_set`
---
-ALTER TABLE `skills_set`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `standard_scrum_artifacts`
---
-ALTER TABLE `standard_scrum_artifacts`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `standard_scrum_events`
---
-ALTER TABLE `standard_scrum_events`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `standard_scrum_pillars`
---
-ALTER TABLE `standard_scrum_pillars`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `standard_scrum_team`
---
-ALTER TABLE `standard_scrum_team`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `technologies`
---
-ALTER TABLE `technologies`
-  ADD PRIMARY KEY (`id`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `contact_us`
---
-ALTER TABLE `contact_us`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `project_data`
---
-ALTER TABLE `project_data`
-  MODIFY `project_id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `registration`
---
-ALTER TABLE `registration`
-  MODIFY `company_id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `scrum_artifacts`
---
-ALTER TABLE `scrum_artifacts`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `scrum_events`
---
-ALTER TABLE `scrum_events`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `scrum_pillars`
---
-ALTER TABLE `scrum_pillars`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `scrum_team`
---
-ALTER TABLE `scrum_team`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `skills_set`
---
-ALTER TABLE `skills_set`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `standard_scrum_artifacts`
---
-ALTER TABLE `standard_scrum_artifacts`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `standard_scrum_events`
---
-ALTER TABLE `standard_scrum_events`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `standard_scrum_pillars`
---
-ALTER TABLE `standard_scrum_pillars`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `standard_scrum_team`
---
-ALTER TABLE `standard_scrum_team`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `technologies`
---
-ALTER TABLE `technologies`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- Constraints for dumped tables
 --
